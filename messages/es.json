@@ -1,0 +1,102 @@
+{
+  "Schelude": {
+    "titulo": "¡Agenda Con Nosotros!",
+    "descripcion": "¡Completa el formulario para agendar tu visita con nosotros!",
+    "nombre": "Nombre",
+    "nombrePlaceholder": "Ingrese su nombre",
+    "apellido": "Apellido",
+    "apellidoPlaceholder": "Ingrese su apellido",
+    "direccion": "Dirección",
+    "direccionPlaceholder": "Ingrese su dirección",
+    "direccion2": "Apartamento, suite, etc. (opcional)",
+    "direccion2Placeholder": "Ingrese su apartamento, suite, etc. (opcional)",
+    "ciudad": "Ciudad",
+    "ciudadPlaceholder": "Ingrese su ciudad",
+    "estado": "Estado/Provincia",
+    "estadoPlaceholder": "Ingrese su estado/provincia",
+    "codigo_postal": "Código postal",
+    "codigo_postalPlaceholder": "Ingrese su código postal",
+    "telefono": "Número de teléfono",
+    "telefonoPlaceholder": "Ingrese su número de teléfono",
+    "email": "Correo electrónico",
+    "emailPlaceholder": "Ingrese su correo electrónico",
+    "fecha": "Fecha",
+    "fechaPlaceholder": "Ingrese su fecha",
+    "hora": "Hora",
+    "horaPlaceholder": "Ingrese su hora",
+    "notas": "Notas adicionales",
+    "notasPlaceholder": "Ingrese sus notas adicionales",
+    "submit": "Agendar Cita",
+    "SucessToast": "Solicitud Enviada",
+    "ErrorToast": "Error sending request",
+    "form": {
+      "phone": "Número de teléfono",
+      "date": "Fecha preferida",
+      "time": "Hora preferida",
+      "notes": "Notas adicionales",
+      "scheduledFor": "Agendado para",
+      "submit": "Agendar Cita"
+    },
+    "errors": {
+      "required": "Este campo es obligatorio",
+      "minLength": "Debe tener al menos {min} caracteres",
+      "invalidEmail": "Por favor ingrese un email válido"
+    }
+  },
+
+  "SignInForm": {
+    "titulo": "Iniciar Sesión",
+    "descripcion": "Inicia sesión para acceder a tu cuenta",
+    "email": "Correo Electrónico",
+    "emailPlaceholder": "Ingrese su correo electrónico",
+    "password": "Contraseña",
+    "passwordPlaceholder": "Ingrese su contraseña",
+    "submit": "Iniciar Sesión",
+    "forgotPassword": "¿Olvidaste la Contraseña?",
+    "required": "Este campo es obligatorio",
+    "minLength": "Debe tener al menos {min} caracteres",
+    "invalidEmail": "Por favor ingrese un email válido"
+  },
+
+  "ForgotPasswordForm": {
+    "titulo": "Recuperar Contraseña",
+    "descripcion": "Ingresa el correo asignado para recuperar la cuenta.",
+    "email": "Correo",
+    "emailPlaceholder": "Ingresa un correo válido.",
+    "submit": "Enviar",
+    "backToLogin": "Volver al inicio",
+    "successMessage": "Verifica tu correo para recuperar tu contraseña.",
+    "errorMessage": "Ocurrió un error al enviar el correo de recuperación. Intenta nuevamente."
+  },
+
+  "Sidebar": {
+    "home": "Inicio",
+    "dashboard": "Panel",
+    "schedule": "Citas Pendientes",
+    "clients": "Clientes",
+    "settings": "Configuración",
+    "logout": "Cerrar Sesión"
+  },
+
+  "Dashboard": {
+    "title": "Panel de Control",
+    "welcome": "Bienvenido a tu panel de Urban Contractors",
+    "stats": {
+      "totalProjects": "Proyectos Totales",
+      "activeClients": "Clientes Activos",
+      "scheduledVisits": "Visitas Programadas",
+      "revenue": "Ingresos",
+      "fromLastMonth": "del mes pasado",
+      "thisWeek": "Esta semana"
+    },
+    "recentActivity": {
+      "title": "Actividad Reciente",
+      "description": "Tus últimas actualizaciones de proyectos e interacciones con clientes",
+      "newProject": "Nuevo proyecto programado con {client}",
+      "projectCompleted": "Proyecto de {project} completado",
+      "paymentReceived": "Pago recibido de {client}",
+      "hoursAgo": "hace {hours} horas",
+      "daysAgo": "hace {days} días"
+    }
+  }
+}

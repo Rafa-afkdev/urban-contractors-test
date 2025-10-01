@@ -1,0 +1,104 @@
+{
+  "Schelude": {
+    "titulo": "Schedule With Us!",
+    "nombre": "First Name",
+    "descripcion": "Complete the form to schedule your visit with us!",
+    "nombrePlaceholder": "Enter your first name",
+    "apellido": "Last Name",
+    "apellidoPlaceholder": "Enter your last name",
+    "direccion": "Address",
+    "direccionPlaceholder": "Enter your address",
+    "direccion2": "Apartment, suite, etc. (optional)",
+    "direccion2Placeholder": "Enter your apartment, suite, etc. (optional)",
+    "ciudad": "City",
+    "ciudadPlaceholder": "Enter your city",
+    "estado": "State/Province",
+    "estadoPlaceholder": "Enter your state/province",
+    "codigo_postal": "ZIP/Postal code",
+    "telefono": "Phone number",
+    "telefonoPlaceholder": "Enter your phone number",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "fecha": "Date",
+    "fechaPlaceholder": "Enter your date",
+    "hora": "Time",
+    "horaPlaceholder": "Enter your time",
+    "codigo_postalPlaceholder": "Enter your zip/postal code",
+    "notas": "Additional notes",
+    "notasPlaceholder": "Enter your additional notes",
+    "submit": "Schedule Appointment",
+    "SucessToast": "Request Sent",
+    "ErrorToast": "",
+    "form": {
+      "phone": "Phone number",
+      "date": "Preferred date",
+      "time": "Preferred time",
+      "notes": "Additional notes",
+      "scheduledFor": "Scheduled for",
+      "submit": "Schedule Appointment"
+    },
+    "errors": {
+      "required": "This field is required",
+      "minLength": "Must be at least {min} characters",
+      "invalidEmail": "Please enter a valid email"
+    }
+  },
+
+  "SignInForm": {
+    "titulo": "Sign In",
+    "descripcion": "Sign in to access your account",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "submit": "Sign In",
+    "forgotPassword": "Forgot Password?",
+    "EmailErrors":"Email",
+    "PasswordErrors":"Password",
+    "required":"This field is required",
+    "minLength":"Must be at least {min} characters",
+    "invalidEmail":"Please enter a valid email"
+  },
+
+  "ForgotPasswordForm": {
+    "titulo": "Recover Password",
+    "descripcion": "Enter the email assigned to recover the account.",
+    "email": "Email",
+    "emailPlaceholder": "Enter a valid email.",
+    "submit": "Send",
+    "backToLogin": "Back to login",
+    "successMessage": "Check your email to recover your password.",
+    "errorMessage": "An error occurred while sending the recovery email. Please try again."
+  },
+
+  "Sidebar": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "schedule": "Pending Appointments",
+    "clients": "Clients",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+
+  "Dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome to your Urban Contractors dashboard",
+    "stats": {
+      "totalProjects": "Total Projects",
+      "activeClients": "Active Clients",
+      "scheduledVisits": "Scheduled Visits",
+      "revenue": "Revenue",
+      "fromLastMonth": "from last month",
+      "thisWeek": "This week"
+    },
+    "recentActivity": {
+      "title": "Recent Activity",
+      "description": "Your latest project updates and client interactions",
+      "newProject": "New project scheduled with {client}",
+      "projectCompleted": "{project} project completed",
+      "paymentReceived": "Payment received from {client}",
+      "hoursAgo": "{hours} hours ago",
+      "daysAgo": "{days} days ago"
+    }
+  }
+}
