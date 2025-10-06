@@ -1,7 +1,53 @@
-import React from 'react';
-import PendingAppointments from './components/pending-appointments';
+"use client";
+
+import React, { useState, useEffect } from 'react';
+import { collection, query, where, onSnapshot } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+import PendingAppointments from './components/table-pending-appointments';
+import { Scheludes } from '../../../../../interfaces/scheludes.interface';
 
 export default function SchedulePage() {
+  const [appointments, setAppointments] = useState<Scheludes[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const getAppointments = () => {
+    setIsLoading(true);
+    try {
+      const appointmentsRef = collection(db, 'citas_agendadas');
+      const q = query(appointmentsRef, where('status', '==', 'PENDIENTE'));
+
+      const unsubscribe = onSnapshot(
+        q,
+        (snapshot) => {
+          const appointmentsData: Scheludes[] = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          })) as Scheludes[];
+          setAppointments(appointmentsData);
+          setIsLoading(false);
+        },
+        (error) => {
+          console.error('Error fetching appointments:', error);
+          setIsLoading(false);
+        }
+      );
+
+      return unsubscribe;
+    } catch (error) {
+      console.error('Error setting up appointments listener:', error);
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const unsubscribe = getAppointments();
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
+      }
+    };
+  }, []);
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -9,7 +55,11 @@ export default function SchedulePage() {
           Citas Pendientes
         </h1>
       </div>
-      <PendingAppointments/>
+      <PendingAppointments 
+        appointments={appointments}
+        getAppointmentsAction={getAppointments}
+        isLoading={isLoading}
+      />
     </div>
   );
 }
