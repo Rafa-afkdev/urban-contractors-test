@@ -76,8 +76,12 @@
     "dashboard": "Dashboard",
     "schedule": "Pending Appointments",
     "clients": "Clients",
+    "products": "Products",
+    "projects": "Projects",
+    "catalog": "Catalog of services",
     "settings": "Settings",
-    "logout": "Logout"
+    "logout": "Logout",
+    "employees": "Employees"
   },
 
   "Dashboard": {
@@ -99,6 +103,260 @@
       "paymentReceived": "Payment received from {client}",
       "hoursAgo": "{hours} hours ago",
       "daysAgo": "{days} days ago"
+    }
+  },
+
+  "PendingAppointments": {
+    "title": "To Attend", 
+    "description":"Manage your clients' appointments by sending them an email",
+    "success": "Email sent successfully and appointment updated",
+    "appointmentCount": "{count} appointments",
+    "appointmentCountSingle": "{count} appointment",
+    "Table": {
+      "client": "Client",
+      "email": "Email",
+      "phone": "Phone",
+      "date": "Date",
+      "time": "Time",
+      "status": "Status",
+      "actions": "Actions",
+      "TableInfo" : "There are no pending appointments"
+    },
+    "Status": {
+      "PENDIENTE": "PENDING",
+      "COMPLETADO": "COMPLETED",
+      "CANCELADO": "CANCELLED",
+      "EN_PROCESO": "IN PROGRESS"
+    },
+    "EmailDialog": {
+      "title": "Confirm Email Sending",
+      "description": "You are about to send a confirmation email to the client. The appointment will automatically change to \"TO VISIT\" status.",
+      "date": "Date:",
+      "time": "Time:",
+      "additionalMessage": "Additional message (optional)",
+      "placeholder": "Write a personalized message for the client (optional)...",
+      "characters": "characters",
+      "important": "Important:",
+      "importantText": "By confirming, a professional email will be sent to the client and the appointment will be automatically marked as \"TO VISIT\".",
+      "cancel": "Cancel",
+      "sending": "Sending...",
+      "sendEmail": "Send Email"
+    },
+    "DetailsDialog": {
+      "title": "Client Details",
+      "description": "Complete information of the scheduled appointment",
+      "personalInfo": "Personal Information",
+      "fullName": "Full Name",
+      "email": "Email",
+      "phone": "Phone",
+      "status": "Status",
+      "appointmentDetails": "Appointment Details",
+      "date": "Date",
+      "time": "Time",
+      "location": "Location",
+      "address": "Address",
+      "address2": "Address 2",
+      "city": "City",
+      "state": "State",
+      "postalCode": "Postal Code",
+      "additionalNotes": "Additional Notes",
+      "close": "Close"
+    },
+    "Tooltips": {
+      "viewDetails": "View details",
+      "sendEmail": "Send confirmation email"
+    }
+  },
+
+    "PendingAppointmentsPage": {
+    "title": "Pending Appointments List"
+  },
+
+  "Catalog": {
+    "title": "Services",
+    "ButtonAdd": "Add new service"
+  },
+  "CreateUpdateCatalog": {
+    "titleCreate": "Create Catalog",
+    "titleUpdate": "Update Catalog",
+    "description": "Fill in the catalog details below",
+    "image": "Image",
+    "images": "Images",
+    "name": "Name",
+    "namePlaceholder": "Enter the name",
+    "price": "Price",
+    "pricePlaceholder": "Enter the price",
+    "descriptionLabel": "Description",
+    "descriptionPlaceholder": "Enter the description",
+    "requiredProducts": "Required Products",
+    "addProduct": "Add Product",
+    "noProducts": "No required products added",
+    "noProductsHint": "Click \"Add Product\" to start",
+    "product": "Product",
+    "productName": "Product Name",
+    "productNamePlaceholder": "Enter the product name",
+    "measureType": "Measure Type",
+    "measureTypePlaceholder": "Select the measure type",
+    "quantity": "Quantity",
+    "quantityPlaceholder": "Enter the quantity",
+    "productDescription": "Description",
+    "productDescriptionPlaceholder": "Enter the product description",
+    "buttonCreate": "Add Catalog",
+    "buttonUpdate": "Update Catalog",
+    "successCreate": "Catalog registered successfully",
+    "successUpdate": "Catalog updated successfully",
+    "measureTypes": {
+      "unidad": "Unit",
+      "metro": "Meter",
+      "metro_cuadrado": "Square Meter",
+      "metro_cubico": "Cubic Meter",
+      "kilogramo": "Kilogram",
+      "litro": "Liter",
+      "pieza": "Piece",
+      "caja": "Box",
+      "paquete": "Package"
+    },
+    "validation": {
+      "imageRequired": "Image is required",
+      "nameRequired": "Name is required",
+      "descriptionRequired": "Description is required",
+      "priceRequired": "Price is required"
+    }
+  },
+  "DragAndDropImage": {
+    "label": "+ Insert"
+  },
+  "DragAndDropImageUser": {
+    "label": "+ Insert"
+  },
+  "MultiImageUpload": {
+    "addMore": "Add",
+    "dragHint": "Drag images here or click to select",
+    "maxImages": "Maximum {max} images",
+    "imagesCount": "{count} of {max} images",
+    "canAddMore": "You can add {remaining} more"
+  },
+  "ConfirmDeletion": {
+    "title": "Are you sure you want to delete this product?",
+    "description": "Press Confirm to delete the product from the catalog",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
+  "ConfirmDeletionEmployee": {
+    "title": "Are you sure you want to delete this employee?",
+    "description": "Press Confirm to delete the employee from the catalog",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
+  "Employees": {
+    "title": "My Employees",
+    "ButtonAdd": "Add New Employee",
+    "NoRegistors": "No employees registered",
+    "searchPlaceholder": "Search by name, ID, email, phone or role...",
+    "resultsFound": "result found",
+    "resultsFoundPlural": "results found",
+    "tableHeaders": {
+      "photo": "Photo",
+      "socialSecurity": "ID Number",
+      "fullName": "Full Name",
+      "actions": "Actions"
+    },
+    "tooltips": {
+      "edit": "Edit",
+      "view": "View details",
+      "delete": "Delete"
+    }
+  },
+
+  "ViewEmployeeDetails": {
+    "title": "Employee Details",
+    "sections": {
+      "personalInfo": "Personal Information",
+      "address": "Address",
+      "systemInfo": "System Information"
+    },
+    "fields": {
+      "cedula": "ID Number",
+      "phone": "Phone",
+      "email": "Email Address",
+      "fullAddress": "Full Address",
+      "city": "City",
+      "state": "State",
+      "postalCode": "Postal Code",
+      "registrationDate": "Registration Date",
+      "lastUpdate": "Last Update"
+    }
+  },
+  "CreateUpdateEmployees": {
+    "titleCreate": "Create Employee",
+    "titleUpdate": "Update Employee",
+    "description": "Complete the employee information below",
+    "image": "Image",
+    "sections": {
+      "personalInfo": "Personal Information",
+      "accessData": "Access Data",
+      "address": "Address",
+      "userConfig": "User Configuration"
+    },
+    "cedula": "ID Number",
+    "cedulaPlaceholder": "000-0000000-0",
+    "edad": "Age",
+    "nombres": "First Name",
+    "nombresPlaceholder": "Employee first name",
+    "apellidos": "Last Name",
+    "apellidosPlaceholder": "Employee last name",
+    "sexo": "Gender",
+    "fechaNacimiento": "Date of Birth",
+    "direccion": "Address",
+    "direccionPlaceholder": "Full address",
+    "ciudad": "City",
+    "ciudadPlaceholder": "City",
+    "estado": "State",
+    "estadoPlaceholder": "State/Province",
+    "codigoPostal": "Postal Code",
+    "codigoPostalPlaceholder": "00000",
+    "pais": "Country",
+    "telefono": "Phone",
+    "telefonoPlaceholder": "809-000-0000",
+    "correo": "Email",
+    "correoPlaceholder": "email@example.com",
+    "contraseña": "Password",
+    "contraseñaPlaceholder": "Minimum 6 characters",
+    "rol": "Role",
+    "rolPlaceholder": "Select a role",
+    "rolesLabel": "Roles",
+    "rolAdmin": "Administrator",
+    "rolSupervisor": "Supervisor",
+    "rolTrabajador": "Worker",
+    "rolContador": "Accountant",
+    "status": "Status",
+    "statusPlaceholder": "Select a status",
+    "statusLabel": "Status",
+    "statusActivo": "Active",
+    "statusInactivo": "Inactive",
+    "statusSuspendido": "Suspended",
+    "buttonCreate": "Add Employee",
+    "buttonUpdate": "Update Employee",
+    "successCreate": "Employee registered successfully",
+    "successUpdate": "Employee updated successfully",
+    "validation": {
+      "cedulaRequired": "ID number is required",
+      "cedulaMin": "ID number must be at least 8 characters",
+      "cedulaMax": "ID number must be less than 8 characters",
+      "nombresRequired": "First name is required",
+      "apellidosRequired": "Last name is required",
+      "sexoRequired": "Gender is required",
+      "fechaNacimientoRequired": "Date of birth is required",
+      "direccionRequired": "Address is required",
+      "ciudadRequired": "City is required",
+      "estadoRequired": "State is required",
+      "codigoPostalRequired": "Postal code is required",
+      "paisRequired": "Country is required",
+      "telefonoRequired": "Phone is required",
+      "correoRequired": "Email is required",
+      "contraseñaRequired": "Password is required",
+      "rolRequired": "Role is required",
+      "statusRequired": "Status is required"
     }
   }
 }

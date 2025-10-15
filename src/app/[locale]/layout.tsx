@@ -9,6 +9,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import { LanguageToggle } from "@/components/ui/language-toggle"; // Updated import statement
 import ClientRouteGuard from "./client-route-guard";
+import { ConditionalProfileDropdown } from "./conditional-profile-dropdown";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -55,6 +56,7 @@ export default async function RootLayout({
             <div className="fixed top-4 right-4 z-50 flex gap-2">
               <LanguageToggle />
               <ModeToggle />
+              <ConditionalProfileDropdown />
             </div>
         <ClientRouteGuard>
           {children}

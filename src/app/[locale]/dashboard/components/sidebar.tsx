@@ -13,7 +13,9 @@ import {
   BarChart3,
   Package,
   Settings,
-  X
+  X,
+  Book,
+  IdCardLanyard
 } from 'lucide-react';
 import Image from 'next/image';
 import { Link, usePathname } from '@/i18n/routing';
@@ -45,22 +47,41 @@ export default function Sidebar({ className }: SidebarProps) {
     //   href: '/dashboard',
     //   icon: BarChart3,
     // },
+
+    {
+      name: t('projects'),
+      href: '/dashboard/projects',
+      icon: Package,
+    },
+
+    {
+      name: t('catalog'),
+      href: '/dashboard/catalog',
+      icon: Book,
+    },
+
     {
       name: t('schedule'),
       href: '/dashboard/pending-appointments',
       icon: Calendar,
       badge: !loading ? pendingCount : undefined,
     },
+    // {
+    //   name: t('products'),
+    //   href: '/dashboard/products',
+    //   icon: Package,
+    // },
     {
-      name: 'Products',
-      href: '/dashboard/products',
-      icon: Package,
+      name: t('employees'),
+      href: '/dashboard/employees',
+      icon: IdCardLanyard,
     },
     {
       name: t('clients'),
       href: '/dashboard/clients',
       icon: Users,
     },
+  
     {
       name: t('settings'),
       href: '/dashboard/settings',
@@ -160,7 +181,6 @@ export default function Sidebar({ className }: SidebarProps) {
               <LogOut className="h-5 w-5 mr-3" />
               {t('logout')}
             </Button> */}
-            <ProfileDropdown/>
           </div>
         </div>
       </aside>

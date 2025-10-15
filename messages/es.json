@@ -74,8 +74,12 @@
     "dashboard": "Panel",
     "schedule": "Citas Pendientes",
     "clients": "Clientes",
+    "products": "Productos",
+    "projects": "Proyectos",
+    "catalog": "Catalogo de servicios",
     "settings": "Configuración",
-    "logout": "Cerrar Sesión"
+    "logout": "Cerrar Sesión",
+    "employees": "Trabajadores"
   },
 
   "Dashboard": {
@@ -97,6 +101,261 @@
       "paymentReceived": "Pago recibido de {client}",
       "hoursAgo": "hace {hours} horas",
       "daysAgo": "hace {days} días"
+    }
+  },
+
+  "PendingAppointments": {
+    "title": "Por Atender", 
+    "description":"Gestiona la cita de tus clientes enviandoles un email",
+    "success": "Email enviado exitosamente y cita actualizada",
+    "appointmentCount": "{count} citas",
+    "appointmentCountSingle": "{count} cita",
+    "Table": {
+      "client": "Cliente",
+      "email": "Email",
+      "phone": "Telefono",
+      "date": "Fecha",
+      "time": "Hora",
+      "status": "Estado",
+      "actions": "Acciones",
+      "TableInfo": "No hay citas pendientes"
+    },
+    "Status": {
+      "PENDIENTE": "PENDIENTE",
+      "COMPLETADO": "COMPLETADO",
+      "CANCELADO": "CANCELADO",
+      "EN_PROCESO": "EN PROCESO"
+    },
+    "EmailDialog": {
+      "title": "Confirmar Envío de Email",
+      "description": "Estás a punto de enviar un email de confirmación al cliente. La cita cambiará automáticamente a estado \"POR VISITAR\".",
+      "date": "Fecha:",
+      "time": "Hora:",
+      "additionalMessage": "Mensaje adicional (opcional)",
+      "placeholder": "Escribe un mensaje personalizado para el cliente (opcional)...",
+      "characters": "caracteres",
+      "important": "Importante:",
+      "importantText": "Al confirmar, se enviará un email profesional al cliente y la cita se marcará como \"POR VISITAR\" automáticamente.",
+      "cancel": "Cancelar",
+      "sending": "Enviando...",
+      "sendEmail": "Enviar Email"
+    },
+    "DetailsDialog": {
+      "title": "Detalles del Cliente",
+      "description": "Información completa de la cita agendada",
+      "personalInfo": "Información Personal",
+      "fullName": "Nombre Completo",
+      "email": "Email",
+      "phone": "Teléfono",
+      "status": "Estado",
+      "appointmentDetails": "Detalles de la Cita",
+      "date": "Fecha",
+      "time": "Hora",
+      "location": "Ubicación",
+      "address": "Dirección",
+      "address2": "Dirección 2",
+      "city": "Ciudad",
+      "state": "Estado",
+      "postalCode": "Código Postal",
+      "additionalNotes": "Notas Adicionales",
+      "close": "Cerrar"
+    },
+    "Tooltips": {
+      "viewDetails": "Ver detalles",
+      "sendEmail": "Enviar email de confirmación"
+    }
+  },
+
+
+  "PendingAppointmentsPage": {
+    "title": "Lista De Citas Pendientes"
+  },
+  "Catalog": {
+    "title": "Servicios",
+    "ButtonAdd": "Agregar nuevo servicio"
+  },
+  "CreateUpdateCatalog": {
+    "titleCreate": "Crear Catálogo",
+    "titleUpdate": "Actualizar Catálogo",
+    "description": "Complete los datos del catálogo a continuación",
+    "image": "Imagen",
+    "images": "Imágenes",
+    "name": "Nombre",
+    "namePlaceholder": "Ingrese el nombre",
+    "price": "Precio",
+    "pricePlaceholder": "Ingrese el precio",
+    "descriptionLabel": "Descripción",
+    "descriptionPlaceholder": "Ingrese la descripción",
+    "requiredProducts": "Productos Requeridos",
+    "addProduct": "Agregar Producto",
+    "noProducts": "Ningún producto requerido agregado",
+    "noProductsHint": "Haga clic en \"Agregar Producto\" para comenzar",
+    "product": "Producto",
+    "productName": "Nombre del Producto",
+    "productNamePlaceholder": "Ingrese el nombre del producto",
+    "measureType": "Tipo de Medida",
+    "measureTypePlaceholder": "Seleccione el tipo de medida",
+    "quantity": "Cantidad",
+    "quantityPlaceholder": "Ingrese la cantidad",
+    "productDescription": "Descripción",
+    "productDescriptionPlaceholder": "Ingrese la descripción del producto",
+    "buttonCreate": "Agregar Catálogo",
+    "buttonUpdate": "Actualizar Catálogo",
+    "successCreate": "Catálogo registrado con éxito",
+    "successUpdate": "Catálogo actualizado con éxito",
+    "measureTypes": {
+      "unidad": "Unidad",
+      "metro": "Metro",
+      "metro_cuadrado": "Metro Cuadrado",
+      "metro_cubico": "Metro Cúbico",
+      "kilogramo": "Kilogramo",
+      "litro": "Litro",
+      "pieza": "Pieza",
+      "caja": "Caja",
+      "paquete": "Paquete"
+    },
+    "validation": {
+      "imageRequired": "La imagen es obligatoria",
+      "nameRequired": "El nombre es obligatorio",
+      "descriptionRequired": "La descripción es obligatoria",
+      "priceRequired": "El precio es obligatorio"
+    }
+  },
+  "DragAndDropImage": {
+    "label": "+ Insertar"
+  },
+  "DragAndDropImageUser": {
+    "label": "+ Insertar"
+  },
+  "MultiImageUpload": {
+    "addMore": "Agregar",
+    "dragHint": "Arrastra imágenes aquí o haz clic para seleccionar",
+    "maxImages": "Máximo {max} imágenes",
+    "imagesCount": "{count} de {max} imágenes",
+    "canAddMore": "Puedes agregar {remaining} más"
+  },
+  "ConfirmDeletion": {
+    "title": "¿Estás seguro de que deseas eliminar este producto?",
+    "description": "Presiona Confirmar para eliminar el producto del catálogo",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar"
+  },
+  "ConfirmDeletionEmployee": {
+    "title": "¿Estás seguro de que deseas eliminar este empleado?",
+    "description": "Presiona Confirmar para eliminar el empleado del catálogo",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar"
+  },
+  "Employees": {
+    "title": "Mis Trabajadores",
+    "ButtonAdd": "Registrar Nuevo Trabajador",
+    "NoRegistors": "No hay trabajadores registrados",
+    "searchPlaceholder": "Buscar por nombre, cédula, correo, teléfono o rol...",
+    "resultsFound": "resultado encontrado",
+    "resultsFoundPlural": "resultados encontrados",
+    "tableHeaders": {
+      "photo": "Foto",
+      "socialSecurity": "Cédula",
+      "fullName": "Nombre Completo",
+      "actions": "Acciones"
+    },
+    "tooltips": {
+      "edit": "Editar",
+      "view": "Ver detalles",
+      "delete": "Eliminar"
+    }
+  },
+
+  "ViewEmployeeDetails": {
+    "title": "Detalles del Trabajador",
+    "sections": {
+      "personalInfo": "Información Personal",
+      "address": "Dirección",
+      "systemInfo": "Información del Sistema"
+    },
+    "fields": {
+      "cedula": "Cédula",
+      "phone": "Teléfono",
+      "email": "Correo Electrónico",
+      "fullAddress": "Dirección Completa",
+      "city": "Ciudad",
+      "state": "Estado",
+      "postalCode": "Código Postal",
+      "registrationDate": "Fecha de Registro",
+      "lastUpdate": "Última Actualización"
+    }
+  },
+
+  "CreateUpdateEmployees": {
+    "titleCreate": "Crear Trabajador",
+    "titleUpdate": "Actualizar Trabajador",
+    "description": "Complete los datos del trabajador a continuación",
+    "image": "Imagen",
+    "sections": {
+      "personalInfo": "Información Personal",
+      "accessData": "Datos de Acceso",
+      "address": "Dirección",
+      "userConfig": "Configuración de Usuario"
+    },
+    "cedula": "Cédula",
+    "cedulaPlaceholder": "000-0000000-0",
+    "edad": "Edad",
+    "nombres": "Nombres",
+    "nombresPlaceholder": "Nombre del trabajador",
+    "apellidos": "Apellidos",
+    "apellidosPlaceholder": "Apellido del trabajador",
+    "sexo": "Sexo",
+    "fechaNacimiento": "Fecha de Nacimiento",
+    "direccion": "Dirección",
+    "direccionPlaceholder": "Dirección completa",
+    "ciudad": "Ciudad",
+    "ciudadPlaceholder": "Ciudad",
+    "estado": "Estado",
+    "estadoPlaceholder": "Estado/Provincia",
+    "codigoPostal": "Código Postal",
+    "codigoPostalPlaceholder": "00000",
+    "pais": "País",
+    "telefono": "Teléfono",
+    "telefonoPlaceholder": "809-000-0000",
+    "correo": "Correo",
+    "correoPlaceholder": "correo@ejemplo.com",
+    "contraseña": "Contraseña",
+    "contraseñaPlaceholder": "Mínimo 6 caracteres",
+    "rol": "Rol",
+    "rolPlaceholder": "Selecciona un rol",
+    "rolesLabel": "Roles",
+    "rolAdmin": "Administrador",
+    "rolSupervisor": "Supervisor",
+    "rolTrabajador": "Trabajador",
+    "rolContador": "Contador",
+    "status": "Estado",
+    "statusPlaceholder": "Selecciona un estado",
+    "statusLabel": "Estado",
+    "statusActivo": "Activo",
+    "statusInactivo": "Inactivo",
+    "statusSuspendido": "Suspendido",
+    "buttonCreate": "Agregar Trabajador",
+    "buttonUpdate": "Actualizar Trabajador",
+    "successCreate": "Trabajador registrado con éxito",
+    "successUpdate": "Trabajador actualizado con éxito",
+    "validation": {
+      "cedulaRequired": "La cédula es obligatoria",
+      "cedulaMin": "La cédula debe tener al menos 8 caracteres",
+      "cedulaMax": "La cédula debe tener menos de 8 caracteres",
+      "nombresRequired": "Los nombres son obligatorios",
+      "apellidosRequired": "Los apellidos son obligatorios",
+      "sexoRequired": "El sexo es obligatorio",
+      "fechaNacimientoRequired": "La fecha de nacimiento es obligatoria",
+      "direccionRequired": "La dirección es obligatoria",
+      "ciudadRequired": "La ciudad es obligatoria",
+      "estadoRequired": "El estado es obligatorio",
+      "codigoPostalRequired": "El código postal es obligatorio",
+      "paisRequired": "El país es obligatorio",
+      "telefonoRequired": "El teléfono es obligatorio",
+      "correoRequired": "El correo es obligatorio",
+      "contraseñaRequired": "La contraseña es obligatoria",
+      "rolRequired": "El rol es obligatorio",
+      "statusRequired": "El status es obligatorio"
     }
   }
 }
