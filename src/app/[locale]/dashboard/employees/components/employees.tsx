@@ -50,7 +50,7 @@ export default function EmployeesComponent() {
 
     const getEmployee = async () => {
         const path = `users`;
-        // const query = [orderBy("created_at", "desc"), where("rol", "==", "TRABAJADOR")];
+       const query = where("rol", "==", "TRABAJADOR");
         setIsLoading(true);
         try {
           const res = (await getCollection(path)) as Employees[];

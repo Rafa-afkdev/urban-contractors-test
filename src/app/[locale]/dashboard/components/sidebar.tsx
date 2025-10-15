@@ -36,11 +36,12 @@ export default function Sidebar({ className }: SidebarProps) {
   const pathname = usePathname();
   const { theme } = useTheme();
 
-  const navigationItems = [
+  const allNavigationItems = [
     {
       name: t('home'),
       href: '/dashboard/home',
       icon: Home,
+      allowedRoles: ['ADMIN', 'SUPERVISOR', 'TRABAJADOR', 'CONTADOR'],
     },
     // {
     //   name: t('dashboard'),
@@ -52,12 +53,14 @@ export default function Sidebar({ className }: SidebarProps) {
       name: t('projects'),
       href: '/dashboard/projects',
       icon: Package,
+      allowedRoles: ['ADMIN', 'SUPERVISOR', 'TRABAJADOR', 'CONTADOR'],
     },
 
     {
       name: t('catalog'),
       href: '/dashboard/catalog',
       icon: Book,
+      allowedRoles: ['ADMIN', 'SUPERVISOR', 'TRABAJADOR', 'CONTADOR'],
     },
 
     {
@@ -65,6 +68,7 @@ export default function Sidebar({ className }: SidebarProps) {
       href: '/dashboard/pending-appointments',
       icon: Calendar,
       badge: !loading ? pendingCount : undefined,
+      allowedRoles: ['ADMIN', 'SUPERVISOR', 'TRABAJADOR', 'CONTADOR'],
     },
     // {
     //   name: t('products'),
@@ -75,19 +79,28 @@ export default function Sidebar({ className }: SidebarProps) {
       name: t('employees'),
       href: '/dashboard/employees',
       icon: IdCardLanyard,
+      allowedRoles: ['ADMIN', 'SUPERVISOR', 'CONTADOR'],
     },
     {
       name: t('clients'),
       href: '/dashboard/clients',
       icon: Users,
+      allowedRoles: ['ADMIN', 'SUPERVISOR', 'TRABAJADOR', 'CONTADOR'],
     },
   
     {
       name: t('settings'),
       href: '/dashboard/settings',
       icon: Settings,
+      allowedRoles: ['ADMIN', 'SUPERVISOR', 'CONTADOR'],
     },
   ];
+
+  // Filter navigation items based on user role
+  const navigationItems = allNavigationItems.filter(item => {
+    if (!user || !user.rol) return false;
+    return item.allowedRoles.includes(user.rol);
+  });
 
   const toggleMobile = () => setIsMobileOpen(!isMobileOpen);
   return (
