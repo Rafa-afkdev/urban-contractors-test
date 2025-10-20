@@ -18,7 +18,7 @@ export default function ClientRouteGuard({ children }: { children: React.ReactNo
     const routeWithoutLocale = parts.length > 1 ? `/${parts.slice(1).join("/")}` : "/";
     const authRoutes = ["/", "/auth", "/forgot-password"];
     const isInAuthRoute = authRoutes.includes(routeWithoutLocale);
-    const isProtectedRoute = routeWithoutLocale.startsWith("/dashboard");
+    const isProtectedRoute = routeWithoutLocale.startsWith("/dashboard/home");
     
     return { routeWithoutLocale, isInAuthRoute, isProtectedRoute };
   }, [pathName]);
@@ -29,7 +29,7 @@ export default function ClientRouteGuard({ children }: { children: React.ReactNo
       // If user is authenticated and on auth routes, redirect to dashboard
       if (user && isInAuthRoute) {
         setIsRedirecting(true);
-        router.push("/dashboard");
+        router.push("/dashboard/home");
         return;
       }
       // If user is NOT authenticated and on protected routes, redirect to auth

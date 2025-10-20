@@ -7,7 +7,7 @@ export function ConditionalProfileDropdown() {
   const pathname = usePathname();
   
   // Mostrar el ProfileDropdown solo si la ruta incluye "/dashboard"
-  const isInDashboard = pathname?.includes("/dashboard");
+  const isInDashboard = pathname?.includes("/dashboard/home");
   
   if (!isInDashboard) {
     return null;

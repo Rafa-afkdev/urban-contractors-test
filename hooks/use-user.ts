@@ -17,7 +17,7 @@ export const useUser = () => {
   const pathName = usePathname();
   const route = useRouter();
 
-  const protectedRoutes = "/dashboard";
+  const protectedRoutes = "/dashboard/home";
   //   const isInprotectedRoute = protectedRoutes.includes(pathName);
 
   const getUserFromDB = async (uid: string) => {
