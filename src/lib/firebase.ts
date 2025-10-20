@@ -2,19 +2,27 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { createUserWithEmailAndPassword, getAuth, sendPasswordResetEmail, signInWithEmailAndPassword, updateProfile } from "firebase/auth" 
-import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, getFirestore, query, serverTimestamp, setDoc, updateDoc} from "firebase/firestore"
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, getFirestore, query, serverTimestamp, setDoc, updateDoc, increment} from "firebase/firestore"
 import { getStorage, uploadString, getDownloadURL, ref } from "firebase/storage";
 
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+// const firebaseConfig = {
+//     apiKey: "AIzaSyBwSf8p4VRmLtOA5s14-8upyv9rgTS37B0",
+//     authDomain: "urbanconectiontest.firebaseapp.com",
+//     projectId: "urbanconectiontest",
+//     storageBucket: "urbanconectiontest.firebasestorage.app",
+//     messagingSenderId: "29132479755",
+//     appId: "1:29132479755:web:0b483fdcca40164ced560e"
+// };
 const firebaseConfig = {
-    apiKey: "AIzaSyBwSf8p4VRmLtOA5s14-8upyv9rgTS37B0",
-    authDomain: "urbanconectiontest.firebaseapp.com",
-    projectId: "urbanconectiontest",
-    storageBucket: "urbanconectiontest.firebasestorage.app",
-    messagingSenderId: "29132479755",
-    appId: "1:29132479755:web:0b483fdcca40164ced560e"
+  apiKey: "AIzaSyCXt4xzXTbYERtBPgqdpgdAKeRTqAhzIFM",
+  authDomain: "urbancontractorsapp.firebaseapp.com",
+  projectId: "urbancontractorsapp",
+  storageBucket: "urbancontractorsapp.firebasestorage.app",
+  messagingSenderId: "1056590290107",
+  appId: "1:1056590290107:web:2fd3373333290f326f1d9e"
 };
 
 // Initialize Firebase
@@ -58,6 +66,9 @@ export const sentResetEmail = (email: string) => {
 
 
 //TODO FUNCIONES DATABASE///
+
+//?INCREMENTAR O DECREMENTAR UN VALOR NUMERICO//
+export { increment };
 
 export const getCollection = async(colectionName: string, queryArray?:any[]) => {
     const ref = collection(db, colectionName);

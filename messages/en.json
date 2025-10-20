@@ -78,22 +78,49 @@
     "clients": "Clients",
     "products": "Products",
     "projects": "Projects",
-    "catalog": "Catalog of services",
+    "categories": "Categories",
+    "catalog": "Services",
     "settings": "Settings",
     "logout": "Logout",
-    "employees": "Employees"
+    "employees": "Employees",
+    "costwork": "Cost of Work"
   },
 
   "Dashboard": {
     "title": "Dashboard",
     "welcome": "Welcome to your Urban Contractors dashboard",
+    "welcomeMessage": "Welcome to your Urban Contractors dashboard",
     "stats": {
       "totalProjects": "Total Projects",
       "activeClients": "Active Clients",
       "scheduledVisits": "Scheduled Visits",
       "revenue": "Revenue",
+      "totalServices": "Registered Services",
+      "mostRequested": "Most Requested Service",
+      "inProgress": "In Progress",
+      "completed": "Completed",
+      "totalRevenue": "Total Revenue",
+      "monthlyRevenue": "Monthly Revenue",
+      "projectStatus": "Project Status",
+      "recentProjects": "Recent Projects",
+      "pendingAppointments": "Pending Appointments",
+      "canceledProjects": "Canceled Projects",
+      "averageRevenue": "Average Revenue",
       "fromLastMonth": "from last month",
-      "thisWeek": "This week"
+      "thisWeek": "This week",
+      "active": "active",
+      "ofTotal": "of total",
+      "successRate": "success",
+      "fromCompleted": "From completed projects",
+      "lastSixMonths": "Last 6 months of completed revenue",
+      "statusDistribution": "Distribution by status",
+      "recentlyRegistered": "Latest projects registered in the system",
+      "services": "service(s)",
+      "noRecentProjects": "No recent projects",
+      "requests": "requests",
+      "project": "Project",
+      "worker": "Worker",
+      "total": "Total"
     },
     "recentActivity": {
       "title": "Recent Activity",
@@ -173,8 +200,11 @@
   },
 
   "Catalog": {
-    "title": "Services",
-    "ButtonAdd": "Add new service"
+    "title": "Registered Services",
+    "ButtonAdd": "Add New Service",
+    "searchPlaceholder": "Search service by name...",
+    "filterByCategory": "Filter by category",
+    "allCategories": "All categories"
   },
   "CreateUpdateCatalog": {
     "titleCreate": "Create Catalog",
@@ -186,21 +216,27 @@
     "namePlaceholder": "Enter the name",
     "price": "Price",
     "pricePlaceholder": "Enter the price",
+    "serviceDuration": "Service Duration",
+    "serviceDurationPlaceholder": "Ex: 2 hours, 1 day, 3-4 hours",
     "descriptionLabel": "Description",
     "descriptionPlaceholder": "Enter the description",
-    "requiredProducts": "Required Products",
-    "addProduct": "Add Product",
+    "requiredProducts": "Required Materials",
+    "addProduct": "Add Material",
     "noProducts": "No required products added",
     "noProductsHint": "Click \"Add Product\" to start",
-    "product": "Product",
-    "productName": "Product Name",
-    "productNamePlaceholder": "Enter the product name",
+    "product": "Material",
+    "productName": "Material Name",
+    "productNamePlaceholder": "Enter the material name",
     "measureType": "Measure Type",
     "measureTypePlaceholder": "Select the measure type",
     "quantity": "Quantity",
     "quantityPlaceholder": "Enter the quantity",
     "productDescription": "Description",
-    "productDescriptionPlaceholder": "Enter the product description",
+    "productDescriptionPlaceholder": "Enter the material description",
+    "category": "Category",
+    "categoryPlaceholder": "Select a category",
+    "categorySearch": "Search category...",
+    "categoryNotFound": "No category found",
     "buttonCreate": "Add Catalog",
     "buttonUpdate": "Update Catalog",
     "successCreate": "Catalog registered successfully",
@@ -220,7 +256,9 @@
       "imageRequired": "Image is required",
       "nameRequired": "Name is required",
       "descriptionRequired": "Description is required",
-      "priceRequired": "Price is required"
+      "priceRequired": "Price is required",
+      "durationRequired": "Service duration is required",
+      "categoryRequired": "Category is required"
     }
   },
   "DragAndDropImage": {
@@ -239,6 +277,12 @@
   "ConfirmDeletion": {
     "title": "Are you sure you want to delete this product?",
     "description": "Press Confirm to delete the product from the catalog",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
+  "ConfirmDeletionCategories": {
+    "title": "Are you sure you want to delete this category?",
+    "description": "Press Confirm to delete the category from the catalog",
     "cancel": "Cancel",
     "confirm": "Confirm"
   },
@@ -358,5 +402,266 @@
       "rolRequired": "Role is required",
       "statusRequired": "Status is required"
     }
+  },
+  "Categories": {
+    "title": "Registered Categories",
+    "ButtonAdd": "Add new category"
+  },
+  "CreateUpdateCategories" : {
+    "validation" :{
+      "nombresRequired": "Name is required",
+      "descripcionRequired": "Description is required"
+    },
+    "showToast": {
+      "successCreate": "Category created successfully",
+      "successUpdate": "Category updated successfully"
+    },
+    "DialogTitle": {
+      "titleCreate": "Add new category",
+      "titleUpdate": "Update category"
+    },
+    "DialogDescription": {
+      "descriptionCreate": "Please fill in the fields to register a new category.",
+      "descriptionUpdate": "Please fill in the fields to update the category data"
+    },
+    "DialogContent": {
+      "nombreCategoria": "Category",
+      "nombrePlaceholder": "Enter the category name",
+      "descripcionCategoria": "Description",
+      "descripcionPlaceholder": "Enter the category description",
+      "buttonCreate": "Add Category",
+      "buttonUpdate": "Update Category"
+    }
+  },
+  "TableCategory": {
+    "headerName": "Name",
+    "headerDescription": "Description",
+    "headerQuantity": "Number of assigned services",
+    "headerActions": "Actions"
+  },
+  "LaborCost": {
+    "title": "Registered Labor Costs",
+    "ButtonAdd": "Add New Cost"
+  },
+  "CreateUpdateLaborCost": {
+    "titleCreate": "Add Labor Cost",
+    "titleUpdate": "Update Labor Cost",
+    "description": "Fill in the labor cost details below",
+    "service": "Service",
+    "servicePlaceholder": "Select a service",
+    "serviceSearch": "Search service...",
+    "serviceNotFound": "No service found",
+    "cost": "Labor Cost",
+    "costPlaceholder": "Enter the cost",
+    "descriptionLabel": "Description (Optional)",
+    "descriptionPlaceholder": "Enter a description",
+    "cancel": "Cancel",
+    "buttonCreate": "Add Cost",
+    "buttonUpdate": "Update Cost",
+    "successCreate": "Labor cost registered successfully",
+    "successUpdate": "Labor cost updated successfully",
+    "validation": {
+      "serviceRequired": "Service is required",
+      "costRequired": "Cost is required"
+    }
+  },
+  "TableLaborCost": {
+    "headerService": "Service",
+    "headerCost": "Cost",
+    "headerDescription": "Description",
+    "headerActions": "Actions",
+    "noData": "No labor costs registered"
+  },
+  "ConfirmDeletionLaborCost": {
+    "title": "Are you sure you want to delete this cost?",
+    "description": "Press Confirm to delete the labor cost for the service:",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
+  "Projects": {
+    "title": "Registered Projects",
+    "ButtonAdd": "Create New Project",
+    "searchPlaceholder": "Search by client name or email..."
+  },
+  "CreateUpdateProject": {
+    "titleCreate": "Create New Project",
+    "titleUpdate": "Update Project",
+    "description": "Fill in the project details below",
+    "appointment": "Client (Appointment)",
+    "appointmentPlaceholder": "Select an appointment",
+    "appointmentSearch": "Search client...",
+    "appointmentNotFound": "No appointment found",
+    "status": "Project Status",
+    "statusPlaceholder": "Select a status",
+    "statusInProgress": "In Progress",
+    "statusCompleted": "Completed",
+    "statusCanceled": "Canceled",
+    "services": "Project Services",
+    "addService": "Add Service",
+    "noServices": "No services added",
+    "noServicesHint": "Click \"Add Service\" to start",
+    "service": "Service",
+    "serviceName": "Service Name",
+    "serviceNamePlaceholder": "Select a service",
+    "serviceSearch": "Search service...",
+    "serviceNotFound": "No service found",
+    "clientAddress": "Client Address",
+    "clientPhone": "Phone",
+    "clientEmail": "Email",
+    "basePrice": "Base Price",
+    "laborCost": "Labor Cost",
+    "serviceDescription": "Service Description",
+    "requiredMaterials": "Required Materials",
+    "workDescription": "Work Description",
+    "workDescriptionPlaceholder": "E.g: Living room remodeling",
+    "measurementType": "Measurement Type",
+    "linearFeet": "Linear Feet",
+    "linearFeetPlaceholder": "Enter linear feet",
+    "squareFeet": "Square Feet",
+    "squareFeetPlaceholder": "Enter square feet",
+    "materialCostPerFoot": "Material Cost per Foot",
+    "materialCostPerFootPlaceholder": "Ex: $20 per linear/square foot",
+    "serviceNote": "Service Note",
+    "serviceNotePlaceholder": "Enter additional notes for this service",
+    "serviceTotals": "Service Totals",
+    "serviceSubtotal": "Service Subtotal",
+    "materialsSubtotal": "Materials Subtotal",
+    "laborCostTotal": "Labor Cost",
+    "serviceTotal": "Service Total",
+    "projectTotal": "Project Total",
+    "notes": "Notes",
+    "notesPlaceholder": "Enter additional notes",
+    "cancel": "Cancel",
+    "buttonCreate": "Create Project",
+    "buttonUpdate": "Update Project",
+    "successCreate": "Project created successfully",
+    "successUpdate": "Project updated successfully",
+    "validation": {
+      "appointmentRequired": "Appointment is required",
+      "statusRequired": "Status is required",
+      "servicesRequired": "You must add at least one service"
+    }
+  },
+  "TableProjects": {
+    "headerClient": "Client",
+    "headerWorker": "Worker",
+    "headerServices": "Services",
+    "headerStatus": "Status",
+    "headerAddress": "Address",
+    "headerActions": "Actions",
+    "services": "services",
+    "statusInProgress": "In Progress",
+    "statusCompleted": "Completed",
+    "statusCanceled": "Canceled",
+    "noData": "No registered projects",
+    "viewDetails": "View details",
+    "sendInvoice": "Send invoice",
+    "markCompleted": "Mark as completed",
+    "markCanceled": "Mark as canceled",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "SendInvoiceEmail": {
+    "title": "Send Invoice by Email",
+    "description": "The invoice will be sent as PDF to the client's email",
+    "clientInfo": "Client Information",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "servicesInfo": "Services Summary",
+    "totalServices": "Total Services",
+    "projectTotal": "Project Total",
+    "confirmMessage": "An email with the detailed invoice in PDF format will be sent to the client.",
+    "cancel": "Cancel",
+    "sendButton": "Send Invoice",
+    "successMessage": "Invoice sent successfully to the client",
+    "errorMessage": "Error sending invoice. Please try again."
+  },
+  "ConfirmDeletionProject": {
+    "title": "Are you sure you want to delete this project?",
+    "description": "Press Confirm to delete the project for client:",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
+  "ConfirmCompleteProject": {
+    "title": "Mark project as completed?",
+    "description": "This action will mark the project as completed and record the completion date. Project:",
+    "services": "services",
+    "cancel": "Cancel",
+    "confirm": "Mark as Completed"
+  },
+  "ConfirmCancelProject": {
+    "title": "Mark project as canceled?",
+    "description": "This action will mark the project as canceled. Project:",
+    "services": "services",
+    "cancel": "Cancel",
+    "confirm": "Mark as Canceled"
+  },
+  "Clients": {
+    "title": "Registered Clients",
+    "searchPlaceholder": "Search by name or email..."
+  },
+  "TableClients": {
+    "headerClient": "Client",
+    "headerContact": "Contact",
+    "headerLocation": "Location",
+    "headerCompleted": "Completed",
+    "headerInProgress": "In Progress",
+    "headerCanceled": "Canceled",
+    "headerActions": "Actions",
+    "totalProjects": "Total projects",
+    "viewProjects": "View projects",
+    "noData": "No registered clients"
+  },
+  "ViewClientProjects": {
+    "title": "Client Projects",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "totalProjects": "Total Projects",
+    "completed": "Completed",
+    "inProgress": "In Progress",
+    "totalSpent": "Total Spent",
+    "projectsList": "Projects List",
+    "noProjects": "This client has no registered projects",
+    "project": "Project",
+    "services": "Services",
+    "worker": "Worker",
+    "statusInProgress": "In Progress",
+    "statusCompleted": "Completed",
+    "statusCanceled": "Canceled"
+  },
+  "ViewCatalogDetails": {
+    "title": "Service Details",
+    "description": "Complete service information",
+    "images": "images",
+    "serviceName": "Service Name",
+    "basePrice": "Base Price",
+    "serviceDuration": "Service Duration",
+    "serviceDescription": "Description",
+    "category": "Category",
+    "loading": "Loading",
+    "requiredProducts": "Required Products",
+    "measureType": "Measure Type",
+    "quantity": "Quantity"
+  },
+  "ViewProjectDetails": {
+    "title": "Project Details",
+    "description": "Complete project information",
+    "clientInfo": "Client Information",
+    "clientName": "Name",
+    "clientEmail": "Email",
+    "clientPhone": "Phone",
+    "clientAddress": "Address",
+    "status": "Status",
+    "services": "Services",
+    "linearFeet": "Linear Feet",
+    "squareFeet": "Square Feet",
+    "serviceNote": "Service Note",
+    "notes": "Notes",
+    "noServices": "No services assigned",
+    "statusInProgress": "In Progress",
+    "statusCompleted": "Completed",
+    "statusCanceled": "Canceled"
   }
 }

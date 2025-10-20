@@ -50,10 +50,10 @@ export default function EmployeesComponent() {
 
     const getEmployee = async () => {
         const path = `users`;
-       const query = where("rol", "==", "TRABAJADOR");
+        const query = [where("rol", "==", "TRABAJADOR")]; // Array de queries
         setIsLoading(true);
         try {
-          const res = (await getCollection(path)) as Employees[];
+          const res = (await getCollection(path, query)) as Employees[];
           setEmployees(res);
           setFilteredEmployees(res);
         } catch (error) {

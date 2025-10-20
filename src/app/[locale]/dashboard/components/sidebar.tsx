@@ -15,7 +15,9 @@ import {
   Settings,
   X,
   Book,
-  IdCardLanyard
+  IdCardLanyard,
+  Tag,
+  DollarSign
 } from 'lucide-react';
 import Image from 'next/image';
 import { Link, usePathname } from '@/i18n/routing';
@@ -55,12 +57,25 @@ export default function Sidebar({ className }: SidebarProps) {
       icon: Package,
       allowedRoles: ['ADMIN', 'SUPERVISOR', 'TRABAJADOR', 'CONTADOR'],
     },
+    
+    {
+      name: t('categories'),
+      href: '/dashboard/categories',
+      icon: Tag,
+      allowedRoles: ['ADMIN', 'SUPERVISOR', 'TRABAJADOR', 'CONTADOR'],
+    },
 
     {
       name: t('catalog'),
       href: '/dashboard/catalog',
       icon: Book,
-      allowedRoles: ['ADMIN', 'SUPERVISOR', 'TRABAJADOR', 'CONTADOR'],
+      allowedRoles: ['ADMIN', 'SUPERVISOR', 'CONTADOR'],
+    },
+       {
+      name: t('costwork'),
+      href: '/dashboard/cost-work',
+      icon: DollarSign,
+      allowedRoles: ['ADMIN', 'SUPERVISOR', 'CONTADOR'],
     },
 
     {
@@ -138,7 +153,7 @@ export default function Sidebar({ className }: SidebarProps) {
         <div className="flex flex-col h-full">
           {/* Logo section */}
           <div className="flex items-center justify-center p-6 border-b border-gray-200 dark:border-gray-700">
-            <Link href="/dashboard" className="flex items-center space-x-2">
+            <Link href="/dashboard/home" className="flex items-center space-x-2">
               <div className="relative w-28 h-28">
                 <Image
                   src={theme === 'dark' ? "/Logo.png" : "/Logo-Dark.png"}

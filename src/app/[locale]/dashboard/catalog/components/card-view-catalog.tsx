@@ -2,27 +2,30 @@
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent } from "@/components/ui/card";
-import { LayoutList, SquarePen, Trash2 } from "lucide-react";
+import { LayoutList, SquarePen, Trash2, Eye } from "lucide-react";
 import { ConfirmDeletion } from "./confirm-deletion-catalogo";
 import { Catalog } from "../../../../../../interfaces/calalog.interface";
 import CreateUpdateCatalogo from "./create-update-catalogo";
 import { ImageCarousel } from "@/components/ui/image-carousel";
+import { ViewCatalogDetails } from "./view-catalog-details";
 
 export function CardViewCatalogo({
   catalog,
   getCatalog,
   deleteCatalog,
   isLoading,
+  userRole,
 }: {
   catalog: Catalog[];
   getCatalog: () => Promise<void>;
   deleteCatalog: (catalog: Catalog) => Promise<void>;
   isLoading: boolean;
+  userRole?: string;
 }) {
   return (
-    <div className="max-h-[calc(100vh-220px)] overflow-y-auto pr-2">
+    <div className="max-h-[calc(100vh-220px)] overflow-y-auto scrollbar-hide">
       {/* Grid de productos estilo ecommerce */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {!isLoading &&
           catalog.map((item) => (
             <Card key={item.id} className="group hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5 bg-white dark:bg-gray-800 border-0 shadow-sm overflow-hidden">
@@ -37,28 +40,44 @@ export function CardViewCatalogo({
 
                 {/* Botones de acción flotantes */}
                 <div className="absolute top-1.5 right-1.5 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                  <CreateUpdateCatalogo
-                    getCatalogAction={getCatalog}
-                    catalogToUpdate={item}
-                  >
+                  <ViewCatalogDetails catalog={item}>
                     <Button
                       size="icon"
-                      className="h-7 w-7 bg-white/90 hover:bg-white text-gray-700 hover:text-orange-600 shadow-md border-0"
+                      className="h-7 w-7 bg-white/90 hover:bg-white text-gray-700 hover:text-blue-600 shadow-md border-0"
+                      title="Ver detalles"
                     >
-                      <SquarePen className="w-3.5 h-3.5" />
+                      <Eye className="w-3.5 h-3.5" />
                     </Button>
-                  </CreateUpdateCatalogo>
-                  <ConfirmDeletion
-                    deleteCatalog={deleteCatalog}
-                    catalog={item}
-                  >
-                    <Button
-                      size="icon"
-                      className="h-7 w-7 bg-white/90 hover:bg-white text-gray-700 hover:text-red-600 shadow-md border-0"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </Button>
-                  </ConfirmDeletion>
+                  </ViewCatalogDetails>
+                  
+                  {userRole !== 'TRABAJADOR' && (
+                    <>
+                      <CreateUpdateCatalogo
+                        getCatalogAction={getCatalog}
+                        catalogToUpdate={item}
+                      >
+                        <Button
+                          size="icon"
+                          className="h-7 w-7 bg-white/90 hover:bg-white text-gray-700 hover:text-orange-600 shadow-md border-0"
+                          title="Editar"
+                        >
+                          <SquarePen className="w-3.5 h-3.5" />
+                        </Button>
+                      </CreateUpdateCatalogo>
+                      <ConfirmDeletion
+                        deleteCatalog={deleteCatalog}
+                        catalog={item}
+                      >
+                        <Button
+                          size="icon"
+                          className="h-7 w-7 bg-white/90 hover:bg-white text-gray-700 hover:text-red-600 shadow-md border-0"
+                          title="Eliminar"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </Button>
+                      </ConfirmDeletion>
+                    </>
+                  )}
                 </div>
               </div>
 

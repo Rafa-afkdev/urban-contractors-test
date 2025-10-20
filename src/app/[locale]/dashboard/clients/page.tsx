@@ -1,7 +1,5 @@
-import React from 'react';
+import ClientsComponent from "./components/clients";
 
 export default function ClientsPage() {
-  return (
-    <div className="text-gray-900 dark:text-white">Clients</div>
-  );
+  return <ClientsComponent />;
 }

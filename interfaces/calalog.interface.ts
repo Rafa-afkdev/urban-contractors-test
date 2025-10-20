@@ -7,6 +7,8 @@ export interface Catalog {
     nombre: string;
     descripcion: string;
     precio: number;
+    duracion_servicio?: string; // Duración del servicio (ej: "2 horas", "1 día")
+    id_categoria: string;
     productos_requeridos?: CatalogoProductosRequeridos[];
     createdAt: Timestamp;
 }

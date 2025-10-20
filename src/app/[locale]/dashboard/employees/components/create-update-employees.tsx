@@ -24,6 +24,7 @@ import {
   getCollection,
   updateDocument,
   createUser,
+  setDocument,
 } from "@/lib/firebase";
 import {
   Select,
@@ -189,7 +190,8 @@ export function CreateUpdateEmployees({
         created_at: new Date(),
       };
       
-      await addDocument(`users`, normalizedEmployee);
+      // Usar setDocument con el UID como ID del documento
+      await setDocument(`users/${uid}`, normalizedEmployee);
       
       showToast.success(t('successCreate'), {
         duration: 4000,

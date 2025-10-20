@@ -76,22 +76,49 @@
     "clients": "Clientes",
     "products": "Productos",
     "projects": "Proyectos",
-    "catalog": "Catalogo de servicios",
+    "categories": "Categorias",
+    "catalog": "Servicios",
     "settings": "Configuración",
     "logout": "Cerrar Sesión",
-    "employees": "Trabajadores"
+    "employees": "Trabajadores",
+    "costwork": "Costo De Obra"
   },
 
   "Dashboard": {
     "title": "Panel de Control",
     "welcome": "Bienvenido a tu panel de Urban Contractors",
+    "welcomeMessage": "Bienvenido a tu panel de Urban Contractors",
     "stats": {
       "totalProjects": "Proyectos Totales",
       "activeClients": "Clientes Activos",
       "scheduledVisits": "Visitas Programadas",
       "revenue": "Ingresos",
+      "totalServices": "Servicios Registrados",
+      "mostRequested": "Servicio Más Solicitado",
+      "inProgress": "En Proceso",
+      "completed": "Completados",
+      "totalRevenue": "Ingresos Totales",
+      "monthlyRevenue": "Ingresos Mensuales",
+      "projectStatus": "Estado de Proyectos",
+      "recentProjects": "Proyectos Recientes",
+      "pendingAppointments": "Citas Pendientes",
+      "canceledProjects": "Proyectos Cancelados",
+      "averageRevenue": "Ingreso Promedio",
       "fromLastMonth": "del mes pasado",
-      "thisWeek": "Esta semana"
+      "thisWeek": "Esta semana",
+      "active": "activos",
+      "ofTotal": "del total",
+      "successRate": "éxito",
+      "fromCompleted": "De proyectos completados",
+      "lastSixMonths": "Últimos 6 meses de ingresos completados",
+      "statusDistribution": "Distribución por estado",
+      "recentlyRegistered": "Últimos proyectos registrados en el sistema",
+      "services": "servicio(s)",
+      "noRecentProjects": "No hay proyectos recientes",
+      "requests": "solicitudes",
+      "project": "Proyecto",
+      "worker": "Trabajador",
+      "total": "Total"
     },
     "recentActivity": {
       "title": "Actividad Reciente",
@@ -171,8 +198,11 @@
     "title": "Lista De Citas Pendientes"
   },
   "Catalog": {
-    "title": "Servicios",
-    "ButtonAdd": "Agregar nuevo servicio"
+    "title": "Catálogo de Servicios",
+    "ButtonAdd": "Agregar Servicio",
+    "searchPlaceholder": "Buscar servicio por nombre...",
+    "filterByCategory": "Filtrar por categoría",
+    "allCategories": "Todas las categorías"
   },
   "CreateUpdateCatalog": {
     "titleCreate": "Crear Catálogo",
@@ -184,21 +214,27 @@
     "namePlaceholder": "Ingrese el nombre",
     "price": "Precio",
     "pricePlaceholder": "Ingrese el precio",
+    "serviceDuration": "Duración del Servicio",
+    "serviceDurationPlaceholder": "Ej: 2 horas, 1 día, 3-4 horas",
     "descriptionLabel": "Descripción",
     "descriptionPlaceholder": "Ingrese la descripción",
-    "requiredProducts": "Productos Requeridos",
-    "addProduct": "Agregar Producto",
+    "requiredProducts": "Materiales Requeridos",
+    "addProduct": "Agregar Material",
     "noProducts": "Ningún producto requerido agregado",
     "noProductsHint": "Haga clic en \"Agregar Producto\" para comenzar",
-    "product": "Producto",
-    "productName": "Nombre del Producto",
-    "productNamePlaceholder": "Ingrese el nombre del producto",
+    "product": "Material",
+    "productName": "Nombre del Material",
+    "productNamePlaceholder": "Ingrese el nombre del material",
     "measureType": "Tipo de Medida",
     "measureTypePlaceholder": "Seleccione el tipo de medida",
     "quantity": "Cantidad",
     "quantityPlaceholder": "Ingrese la cantidad",
     "productDescription": "Descripción",
-    "productDescriptionPlaceholder": "Ingrese la descripción del producto",
+    "productDescriptionPlaceholder": "Ingrese la descripción del material",
+    "category": "Categoría",
+    "categoryPlaceholder": "Seleccione una categoría",
+    "categorySearch": "Buscar categoría...",
+    "categoryNotFound": "No se encontró ninguna categoría",
     "buttonCreate": "Agregar Catálogo",
     "buttonUpdate": "Actualizar Catálogo",
     "successCreate": "Catálogo registrado con éxito",
@@ -218,7 +254,9 @@
       "imageRequired": "La imagen es obligatoria",
       "nameRequired": "El nombre es obligatorio",
       "descriptionRequired": "La descripción es obligatoria",
-      "priceRequired": "El precio es obligatorio"
+      "priceRequired": "El precio es obligatorio",
+      "durationRequired": "La duración del servicio es obligatoria",
+      "categoryRequired": "La categoría es obligatoria"
     }
   },
   "DragAndDropImage": {
@@ -237,6 +275,13 @@
   "ConfirmDeletion": {
     "title": "¿Estás seguro de que deseas eliminar este producto?",
     "description": "Presiona Confirmar para eliminar el producto del catálogo",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar"
+  },
+
+   "ConfirmDeletionCategories": {
+    "title": "¿Estás seguro de que deseas eliminar esta categoria?",
+    "description": "Presiona Confirmar para eliminar la categoria",
     "cancel": "Cancelar",
     "confirm": "Confirmar"
   },
@@ -357,5 +402,272 @@
       "rolRequired": "El rol es obligatorio",
       "statusRequired": "El status es obligatorio"
     }
+  },
+  "Categories": {
+    "title": "Categorias Registradas",
+    "ButtonAdd": "Agregar nueva categoria"
+  },
+  "CreateUpdateCategories" : {
+    "validation" :{
+      "nombresRequired":"El nombre es obligatorio",
+      "descripcionRequired":"La descripcion es obligatoria"
+    },
+    "showToast": {
+      "successCreate":"Categoria creada exitosamente",
+      "successUpdate":"Categoria actualizada exitosamente"
+    },
+    "DialogTitle": {
+      "titleCreate":"Agregar nueva categoria",
+      "titleUpdate":"Actualizar categoria"
+    },
+    "DialogDescription": {
+      "descriptionCreate":"Por favor, llena los campos para registrar una nueva categoria.",
+      "descriptionUpdate":"Por favor, llena los campos para actualizar los datos de la categoria"
+    },
+    "DialogContent": {
+      "nombreCategoria":"Categoria",
+      "nombrePlaceholder":"Ingrese el nombre de la categoria",
+      "descripcionCategoria":"Descripción",
+      "descripcionPlaceholder": "Ingresa La Descripcion de la Categoria",
+      "buttonCreate":"Agregar Categoria",
+      "buttonUpdate":"Actualizar Categoria"
+    },
+    "ConfirmDeletionCategories": {
+      "title": "¿Estás seguro de que deseas eliminar esta categoria?",
+      "description": "Presiona Confirmar para eliminar la categoria",
+      "cancel": "Cancelar",
+      "confirm": "Confirmar"
+    }   
+  },
+   "TableCategory": {
+      "headerName": "Nombre",
+      "headerDescription": "Descripción",
+      "headerQuantity": "Cantidad de servicios asignados",
+      "headerActions": "Acciones"
+    },
+  "LaborCost": {
+    "title": "Costos de Mano de Obra Registrados",
+    "ButtonAdd": "Agregar Nuevo Costo"
+  },
+  "CreateUpdateLaborCost": {
+    "titleCreate": "Agregar Costo de Mano de Obra",
+    "titleUpdate": "Actualizar Costo de Mano de Obra",
+    "description": "Complete los datos del costo de mano de obra a continuación",
+    "service": "Servicio",
+    "servicePlaceholder": "Seleccione un servicio",
+    "serviceSearch": "Buscar servicio...",
+    "serviceNotFound": "No se encontró ningún servicio",
+    "cost": "Costo de Mano de Obra",
+    "costPlaceholder": "Ingrese el costo",
+    "descriptionLabel": "Descripción (Opcional)",
+    "descriptionPlaceholder": "Ingrese una descripción",
+    "cancel": "Cancelar",
+    "buttonCreate": "Agregar Costo",
+    "buttonUpdate": "Actualizar Costo",
+    "successCreate": "Costo de mano de obra registrado con éxito",
+    "successUpdate": "Costo de mano de obra actualizado con éxito",
+    "validation": {
+      "serviceRequired": "El servicio es obligatorio",
+      "costRequired": "El costo es obligatorio"
+    }
+  },
+  "TableLaborCost": {
+    "headerService": "Servicio",
+    "headerCost": "Costo",
+    "headerDescription": "Descripción",
+    "headerActions": "Acciones",
+    "noData": "No hay costos de mano de obra registrados"
+  },
+  "ConfirmDeletionLaborCost": {
+    "title": "¿Estás seguro de que deseas eliminar este costo?",
+    "description": "Presiona Confirmar para eliminar el costo de mano de obra del servicio:",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar"
+  },
+  "Projects": {
+    "title": "Proyectos Registrados",
+    "ButtonAdd": "Crear Nuevo Proyecto",
+    "searchPlaceholder": "Buscar por nombre de cliente o email..."
+  },
+  "CreateUpdateProject": {
+    "titleCreate": "Crear Nuevo Proyecto",
+    "titleUpdate": "Actualizar Proyecto",
+    "description": "Complete los datos del proyecto a continuación",
+    "appointment": "Cliente (Cita)",
+    "appointmentPlaceholder": "Seleccione una cita",
+    "appointmentSearch": "Buscar cliente...",
+    "appointmentNotFound": "No se encontró ninguna cita",
+    "status": "Estado del Proyecto",
+    "statusPlaceholder": "Seleccione un estado",
+    "statusInProgress": "En Proceso",
+    "statusCompleted": "Completado",
+    "statusCanceled": "Cancelado",
+    "services": "Servicios del Proyecto",
+    "addService": "Agregar Servicio",
+    "noServices": "No hay servicios agregados",
+    "noServicesHint": "Haga clic en \"Agregar Servicio\" para comenzar",
+    "service": "Servicio",
+    "serviceName": "Nombre del Servicio",
+    "serviceNamePlaceholder": "Seleccione un servicio",
+    "serviceSearch": "Buscar servicio...",
+    "serviceNotFound": "No se encontró ningún servicio",
+    "clientAddress": "Dirección del Cliente",
+    "clientPhone": "Teléfono",
+    "clientEmail": "Email",
+    "basePrice": "Precio Base",
+    "laborCost": "Costo Mano de Obra",
+    "serviceDescription": "Descripción del Servicio",
+    "requiredMaterials": "Materiales Requeridos",
+    "workDescription": "Descripción del Trabajo",
+    "workDescriptionPlaceholder": "Ej: Remodelación de sala",
+    "measurementType": "Tipo de Medida",
+    "linearFeet": "Pie Lineal",
+    "linearFeetPlaceholder": "Ingrese pie lineal",
+    "squareFeet": "Pie Cuadrado",
+    "squareFeetPlaceholder": "Ingrese pie cuadrado",
+    "materialCostPerFoot": "Costo de Material por Pie",
+    "materialCostPerFootPlaceholder": "Ej: $20 por pie lineal/cuadrado",
+    "serviceNote": "Nota del Servicio",
+    "serviceNotePlaceholder": "Ingrese notas adicionales para este servicio",
+    "serviceTotals": "Totales del Servicio",
+    "serviceSubtotal": "Subtotal Servicio",
+    "materialsSubtotal": "Subtotal Materiales",
+    "laborCostTotal": "Costo Mano de Obra",
+    "serviceTotal": "Total Servicio",
+    "projectTotal": "Total del Proyecto",
+    "notes": "Notas",
+    "notesPlaceholder": "Ingrese notas adicionales",
+    "cancel": "Cancelar",
+    "buttonCreate": "Crear Proyecto",
+    "buttonUpdate": "Actualizar Proyecto",
+    "successCreate": "Proyecto creado exitosamente",
+    "successUpdate": "Proyecto actualizado exitosamente",
+    "validation": {
+      "appointmentRequired": "La cita es obligatoria",
+      "statusRequired": "El estado es obligatorio",
+      "servicesRequired": "Debe agregar al menos un servicio"
+    }
+  },
+  "TableProjects": {
+    "headerClient": "Cliente",
+    "headerWorker": "Trabajador",
+    "headerServices": "Servicios",
+    "headerStatus": "Estado",
+    "headerAddress": "Dirección",
+    "headerActions": "Acciones",
+    "services": "servicios",
+    "statusInProgress": "En Proceso",
+    "statusCompleted": "Completado",
+    "statusCanceled": "Cancelado",
+    "noData": "No hay proyectos registrados",
+    "viewDetails": "Ver detalles",
+    "sendInvoice": "Enviar factura",
+    "markCompleted": "Marcar como completado",
+    "markCanceled": "Marcar como cancelado",
+    "edit": "Editar",
+    "delete": "Eliminar"
+  },
+  "SendInvoiceEmail": {
+    "title": "Enviar Factura por Email",
+    "description": "Se enviará la factura en PDF al correo del cliente",
+    "clientInfo": "Información del Cliente",
+    "name": "Nombre",
+    "email": "Email",
+    "phone": "Teléfono",
+    "servicesInfo": "Resumen de Servicios",
+    "totalServices": "Total de Servicios",
+    "projectTotal": "Total del Proyecto",
+    "confirmMessage": "Se enviará un email con la factura detallada en formato PDF al cliente.",
+    "cancel": "Cancelar",
+    "sendButton": "Enviar Factura",
+    "successMessage": "Factura enviada exitosamente al cliente",
+    "errorMessage": "Error al enviar la factura. Intente nuevamente."
+  },
+  "ConfirmDeletionProject": {
+    "title": "¿Estás seguro de que deseas eliminar este proyecto?",
+    "description": "Presiona Confirmar para eliminar el proyecto del cliente:",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar"
+  },
+  "ConfirmCompleteProject": {
+    "title": "¿Marcar proyecto como completado?",
+    "description": "Esta acción marcará el proyecto como completado y registrará la fecha de finalización. Proyecto:",
+    "services": "servicios",
+    "cancel": "Cancelar",
+    "confirm": "Marcar como Completado"
+  },
+  "ConfirmCancelProject": {
+    "title": "¿Marcar proyecto como cancelado?",
+    "description": "Esta acción marcará el proyecto como cancelado. Proyecto:",
+    "services": "servicios",
+    "cancel": "Cancelar",
+    "confirm": "Marcar como Cancelado"
+  },
+  "Clients": {
+    "title": "Clientes Registrados",
+    "searchPlaceholder": "Buscar por nombre o email..."
+  },
+  "TableClients": {
+    "headerClient": "Cliente",
+    "headerContact": "Contacto",
+    "headerLocation": "Ubicación",
+    "headerCompleted": "Completados",
+    "headerInProgress": "En Proceso",
+    "headerCanceled": "Cancelados",
+    "headerActions": "Acciones",
+    "totalProjects": "Total proyectos",
+    "viewProjects": "Ver proyectos",
+    "noData": "No hay clientes registrados"
+  },
+  "ViewClientProjects": {
+    "title": "Proyectos del Cliente",
+    "email": "Email",
+    "phone": "Teléfono",
+    "address": "Dirección",
+    "totalProjects": "Total Proyectos",
+    "completed": "Completados",
+    "inProgress": "En Proceso",
+    "totalSpent": "Total Gastado",
+    "projectsList": "Lista de Proyectos",
+    "noProjects": "Este cliente no tiene proyectos registrados",
+    "project": "Proyecto",
+    "services": "Servicios",
+    "worker": "Trabajador",
+    "statusInProgress": "En Proceso",
+    "statusCompleted": "Completado",
+    "statusCanceled": "Cancelado"
+  },
+  "ViewCatalogDetails": {
+    "title": "Detalles del Servicio",
+    "description": "Información completa del servicio",
+    "images": "imágenes",
+    "serviceName": "Nombre del Servicio",
+    "basePrice": "Precio Base",
+    "serviceDuration": "Duración del Servicio",
+    "serviceDescription": "Descripción",
+    "category": "Categoría",
+    "loading": "Cargando",
+    "requiredProducts": "Productos Requeridos",
+    "measureType": "Tipo de Medida",
+    "quantity": "Cantidad"
+  },
+  "ViewProjectDetails": {
+    "title": "Detalles del Proyecto",
+    "description": "Información completa del proyecto",
+    "clientInfo": "Información del Cliente",
+    "clientName": "Nombre",
+    "clientEmail": "Email",
+    "clientPhone": "Teléfono",
+    "clientAddress": "Dirección",
+    "status": "Estado",
+    "services": "Servicios",
+    "linearFeet": "Pie Lineal",
+    "squareFeet": "Pie Cuadrado",
+    "serviceNote": "Nota del Servicio",
+    "notes": "Notas",
+    "noServices": "No hay servicios asignados",
+    "statusInProgress": "En Proceso",
+    "statusCompleted": "Completado",
+    "statusCanceled": "Cancelado"
   }
 }

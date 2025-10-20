@@ -9,7 +9,11 @@ import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import MultiImageUpload from "@/components/ui/multi-image-upload";
-import { addDocument, updateDocument } from "@/lib/firebase";
+import { addDocument, updateDocument, getCollection, getDocument, increment } from "@/lib/firebase";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Check, ChevronsUpDown } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ImageIcon, ClipboardEdit, LoaderCircle, Plus, Trash2 } from "lucide-react";
 import { showToast } from "nextjs-toast-notify";
@@ -18,6 +22,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { useUser } from "../../../../../../hooks/use-user";
 import { Catalog, CatalogoProductosRequeridos } from "../../../../../../interfaces/calalog.interface";
+import { Categorias } from "../../../../../../interfaces/categories.interface";
 import { useTranslations } from "next-intl";
 
 interface CreateUpdateCatalogoProps {
@@ -36,13 +41,18 @@ export default function CreateUpdateCatalogo({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [open, setOpen] = useState(false);
   const [images, setImages] = useState<string[]>([]);
-  const [productosRequeridos, setProductosRequeridos] = useState<CatalogoProductosRequeridos[]>([]);
+  // const [productosRequeridos, setProductosRequeridos] = useState<CatalogoProductosRequeridos[]>([]);
+  const [categories, setCategories] = useState<Categorias[]>([]);
+  const [openCombobox, setOpenCombobox] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
 
   const formSchema = z.object({
     images: z.array(z.string()).min(1, { message: t('validation.imageRequired') }),
     nombre: z.string().min(3, { message: t('validation.nameRequired') }),
     descripcion: z.string().min(3, { message: t('validation.descriptionRequired') }),
     precio: z.string().min(1, { message: t('validation.priceRequired') }),
+    duracion_servicio: z.string().min(1, { message: t('validation.durationRequired') }),
+    id_categoria: z.string().min(1, { message: t('validation.categoryRequired') }),
   });
 
   const tiposMedida = [
@@ -64,10 +74,25 @@ export default function CreateUpdateCatalogo({
       nombre: "",
       descripcion: "",
       precio: "",
+      duracion_servicio: "",
+      id_categoria: "",
     },
   });
 
-  const { register, handleSubmit, setValue, watch } = form;
+  const { register, handleSubmit, setValue, watch, formState: { errors } } = form;
+
+  // Cargar categorías
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = (await getCollection('categorias')) as Categorias[];
+        setCategories(res);
+      } catch (error) {
+        console.error('Error loading categories:', error);
+      }
+    };
+    fetchCategories();
+  }, []);
 
   useEffect(() => {
     if (catalogToUpdate) {
@@ -80,20 +105,24 @@ export default function CreateUpdateCatalogo({
       form.setValue("nombre", catalogToUpdate.nombre || "");
       form.setValue("descripcion", catalogToUpdate.descripcion || "");
       form.setValue("precio", catalogToUpdate.precio?.toString() || "");
+      form.setValue("duracion_servicio", catalogToUpdate.duracion_servicio || "");
+      form.setValue("id_categoria", catalogToUpdate.id_categoria || "");
+      setSelectedCategory(catalogToUpdate.id_categoria || "");
       setImages(catalogImages);
       
       // Asegurar que productos_requeridos sea siempre un array
-      const productos = catalogToUpdate.productos_requeridos;
-      if (Array.isArray(productos)) {
-        setProductosRequeridos(productos);
-      } else {
-        setProductosRequeridos([]);
-      }
+      // const productos = catalogToUpdate.productos_requeridos;
+      // if (Array.isArray(productos)) {
+      //   setProductosRequeridos(productos);
+      // } else {
+      //   setProductosRequeridos([]);
+      // }
     } else {
       // Resetear para nuevo catálogo
       form.reset();
       setImages([]);
-      setProductosRequeridos([]);
+      // setProductosRequeridos([]);
+      setSelectedCategory("");
     }
   }, [catalogToUpdate, open, form]);
 
@@ -102,40 +131,40 @@ export default function CreateUpdateCatalogo({
     setImages(imageUrls);
   };
 
-  const agregarProductoRequerido = () => {
-    const currentProducts = Array.isArray(productosRequeridos) ? productosRequeridos : [];
-    setProductosRequeridos([...currentProducts, {
-      nombre: "",
-      descripcion: "",
-      tipo_medida: "unidad",
-      cantidad: 1
-    }]);
-  };
+  // const agregarProductoRequerido = () => {
+  //   const currentProducts = Array.isArray(productosRequeridos) ? productosRequeridos : [];
+  //   setProductosRequeridos([...currentProducts, {
+  //     nombre: "",
+  //     descripcion: "",
+  //     tipo_medida: "unidad",
+  //     cantidad: 1
+  //   }]);
+  // };
 
-  const eliminarProductoRequerido = (index: number) => {
-    if (Array.isArray(productosRequeridos)) {
-      setProductosRequeridos(productosRequeridos.filter((_, i) => i !== index));
-    }
-  };
+  // const eliminarProductoRequerido = (index: number) => {
+  //   if (Array.isArray(productosRequeridos)) {
+  //     setProductosRequeridos(productosRequeridos.filter((_, i) => i !== index));
+  //   }
+  // };
 
-  const actualizarProductoRequerido = (index: number, field: keyof CatalogoProductosRequeridos, value: string | number) => {
-    if (Array.isArray(productosRequeridos) && productosRequeridos[index]) {
-      const nuevosProductos = [...productosRequeridos];
-      nuevosProductos[index] = { ...nuevosProductos[index], [field]: value };
-      setProductosRequeridos(nuevosProductos);
-    }
-  };
+  // const actualizarProductoRequerido = (index: number, field: keyof CatalogoProductosRequeridos, value: string | number) => {
+  //   if (Array.isArray(productosRequeridos) && productosRequeridos[index]) {
+  //     const nuevosProductos = [...productosRequeridos];
+  //     nuevosProductos[index] = { ...nuevosProductos[index], [field]: value };
+  //     setProductosRequeridos(nuevosProductos);
+  //   }
+  // };
 
   const onSubmit = async (catalog: z.infer<typeof formSchema>) => {
-    const catalogWithProducts = {
-      ...catalog,
-      productos_requeridos: Array.isArray(productosRequeridos) ? productosRequeridos : []
-    };
+    // const catalogWithProducts = {
+    //   ...catalog,
+    //   productos_requeridos: Array.isArray(productosRequeridos) ? productosRequeridos : []
+    // };
     
     if (catalogToUpdate) {
-      UpdateCatalog(catalogWithProducts);
+      UpdateCatalog(catalog);
     } else {
-      CreateCatalog(catalogWithProducts);
+      CreateCatalog(catalog);
     }
   };
 
@@ -151,6 +180,15 @@ export default function CreateUpdateCatalogo({
       };
 
       await addDocument(path, normalizedCatalog);
+      
+      // Incrementar cantidad_servicios_asignados en la categoría seleccionada
+      if (catalog.id_categoria) {
+        const categoryPath = `categorias/${catalog.id_categoria}`;
+        await updateDocument(categoryPath, {
+          cantidad_servicios_asignados: increment(1)
+        });
+      }
+      
       showToast.success(t('successCreate'), {
         duration: 4000,
         progress: true,
@@ -162,7 +200,8 @@ export default function CreateUpdateCatalogo({
       setOpen(false);
       form.reset();
       setImages([]);
-      setProductosRequeridos([]);
+      // setProductosRequeridos([]);
+      setSelectedCategory("");
       getCatalogAction();
     } catch (error: any) {
       showToast.error(error.message, {
@@ -190,6 +229,25 @@ export default function CreateUpdateCatalogo({
         updated_at: new Date().toISOString(),
       };
 
+      // Si cambió la categoría, actualizar contadores
+      if (catalogToUpdate?.id_categoria !== catalog.id_categoria) {
+        // Decrementar en la categoría anterior
+        if (catalogToUpdate?.id_categoria) {
+          const oldCategoryPath = `categorias/${catalogToUpdate.id_categoria}`;
+          await updateDocument(oldCategoryPath, {
+            cantidad_servicios_asignados: increment(-1)
+          });
+        }
+        
+        // Incrementar en la nueva categoría
+        if (catalog.id_categoria) {
+          const newCategoryPath = `categorias/${catalog.id_categoria}`;
+          await updateDocument(newCategoryPath, {
+            cantidad_servicios_asignados: increment(1)
+          });
+        }
+      }
+
       await updateDocument(path, normalizedCatalog);
       showToast.success(t('successUpdate'), {
         duration: 4000,
@@ -203,7 +261,8 @@ export default function CreateUpdateCatalogo({
       setOpen(false);
       form.reset();
       setImages([]);
-      setProductosRequeridos([]);
+      // setProductosRequeridos([]);
+      setSelectedCategory("");
     } catch (error: any) {
       showToast.error(error.message, {
         duration: 2500,
@@ -258,7 +317,7 @@ export default function CreateUpdateCatalogo({
                 />
               </div>
 
-              {/* Pre\u00e7o */}
+              {/* Preço */}
               <div className="space-y-1">
                 <Label htmlFor="precio">{t('price')}</Label>
                 <Input
@@ -268,6 +327,19 @@ export default function CreateUpdateCatalogo({
                   step="0.01"
                   placeholder={t('pricePlaceholder')}
                 />
+              </div>
+
+              {/* Duración del Servicio */}
+              <div className="space-y-1 col-span-2">
+                <Label htmlFor="duracion_servicio">{t('serviceDuration')}</Label>
+                <Input
+                  {...register("duracion_servicio")}
+                  id="duracion_servicio"
+                  placeholder={t('serviceDurationPlaceholder')}
+                />
+                {errors.duracion_servicio && (
+                  <p className="text-sm text-red-500">{errors.duracion_servicio.message}</p>
+                )}
               </div>
 
               {/* Descrição */}
@@ -280,8 +352,61 @@ export default function CreateUpdateCatalogo({
                 />
               </div>
 
-              {/* Produtos Requeridos */}
-              <div className="space-y-4 col-span-2">
+              {/* Categoría */}
+              <div className="space-y-1 col-span-2">
+                <Label htmlFor="id_categoria">{t('category')}</Label>
+                <Popover open={openCombobox} onOpenChange={setOpenCombobox}>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      aria-expanded={openCombobox}
+                      className="w-full justify-between"
+                    >
+                      {selectedCategory
+                        ? categories.find((cat) => cat.id === selectedCategory)?.nombre
+                        : t('categoryPlaceholder')}
+                      <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-full p-0">
+                    <Command>
+                      <CommandInput placeholder={t('categorySearch')} className="h-9" />
+                      <CommandList>
+                        <CommandEmpty>{t('categoryNotFound')}</CommandEmpty>
+                        <CommandGroup>
+                          {categories.map((category) => (
+                            <CommandItem
+                              key={category.id}
+                              value={category.nombre}
+                              onSelect={() => {
+                                const newValue = category.id === selectedCategory ? "" : category.id || "";
+                                setSelectedCategory(newValue);
+                                setValue("id_categoria", newValue);
+                                setOpenCombobox(false);
+                              }}
+                            >
+                              {category.nombre}
+                              <Check
+                                className={cn(
+                                  "ml-auto h-4 w-4",
+                                  selectedCategory === category.id ? "opacity-100" : "opacity-0"
+                                )}
+                              />
+                            </CommandItem>
+                          ))}
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
+                {errors.id_categoria && (
+                  <p className="text-sm text-red-500">{errors.id_categoria.message}</p>
+                )}
+              </div>
+
+              {/* Produtos Requeridos - COMENTADO */}
+              {/* <div className="space-y-4 col-span-2">
                 <div className="flex justify-between items-center">
                   <h3 className="font-semibold text-lg">{t('requiredProducts')}</h3>
                   <Button
@@ -369,11 +494,11 @@ export default function CreateUpdateCatalogo({
                     </div>
                   </Card>
                 ))}
-              </div>
+              </div> */}
             </CardContent>
 
             <CardFooter className="flex justify-center items-center">
-              <Button type="submit" disabled={isLoading} className="flex-center bg-sky-400">
+              <Button type="submit" disabled={isLoading} className="flex-center bg-orange-400">
                 <ClipboardEdit className="mr-2" />
                 {isLoading && <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />}
                 {catalogToUpdate ? t('buttonUpdate') : t('buttonCreate')}

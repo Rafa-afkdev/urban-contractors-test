@@ -1,7 +1,8 @@
 import React from 'react'
+import ProjectsComponents from './components/projects'
 
-export default function page() {
+export default function ProjectsPage() {
   return (
-    <div>page</div>
+    <ProjectsComponents />
   )
 }
