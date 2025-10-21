@@ -32,7 +32,7 @@ export default function Schelude() {
     email: z.string().trim().min(1, { message: t('errors.required') }).min(6, { message: t('errors.minLength', { min: 6 }) }),
     fecha: z.string().min(1, { message: t('errors.required') }),
     hora: z.string().trim().min(1, { message: t('errors.required') }),
-    notas: z.string().optional(),
+    notas: z.string(),
   })
 
   const form = useForm<z.infer<typeof formSchema>>({

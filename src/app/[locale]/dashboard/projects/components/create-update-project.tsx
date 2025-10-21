@@ -25,7 +25,11 @@ import { LaborCost } from "../../../../../../interfaces/labor-cost.interface";
 import { Client } from "../../../../../../interfaces/clients.interface";
 import { useTranslations } from "next-intl";
 import { Textarea } from "@/components/ui/textarea";
+import { Calendar } from "@/components/ui/calendar";
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
 import { useUser } from "../../../../../../hooks/use-user";
+import { Timestamp } from "firebase/firestore";
 
 interface CreateUpdateProjectProps {
   children: React.ReactNode;
@@ -49,9 +53,26 @@ export function CreateUpdateProject({
   const [selectedAppointmentData, setSelectedAppointmentData] = useState<Scheludes | null>(null);
   const [projectServices, setProjectServices] = useState<ProjectService[]>([]);
   const [totalProyecto, setTotalProyecto] = useState<number>(0);
+  const [openCreateAppointment, setOpenCreateAppointment] = useState(false);
+  const [isCreatingAppointment, setIsCreatingAppointment] = useState(false);
 
   const formSchema = z.object({
     id_cita: z.string().min(1, { message: t('validation.appointmentRequired') }),
+    notas: z.string().optional(),
+  });
+
+  const appointmentFormSchema = z.object({
+    nombre: z.string().min(1, { message: t('appointmentForm.firstNameRequired') }),
+    apellido: z.string().min(1, { message: t('appointmentForm.lastNameRequired') }),
+    direccion: z.string().min(1, { message: t('appointmentForm.addressRequired') }),
+    direccion2: z.string().optional(),
+    ciudad: z.string().min(1, { message: t('appointmentForm.cityRequired') }),
+    estado: z.string().min(1, { message: t('appointmentForm.stateRequired') }),
+    codigo_postal: z.string().min(1, { message: t('appointmentForm.zipCodeRequired') }),
+    email: z.string().email({ message: t('appointmentForm.emailInvalid') }),
+    telefono: z.string().min(1, { message: t('appointmentForm.phoneRequired') }),
+    fecha: z.date({ message: t('appointmentForm.appointmentDateRequired') }),
+    hora: z.string().min(1, { message: t('appointmentForm.appointmentTimeRequired') }),
     notas: z.string().optional(),
   });
 
@@ -59,6 +80,24 @@ export function CreateUpdateProject({
     resolver: zodResolver(formSchema),
     defaultValues: {
       id_cita: "",
+      notas: "",
+    },
+  });
+
+  const appointmentForm = useForm<z.infer<typeof appointmentFormSchema>>({
+    resolver: zodResolver(appointmentFormSchema),
+    defaultValues: {
+      nombre: "",
+      apellido: "",
+      direccion: "",
+      direccion2: "",
+      ciudad: "",
+      estado: "",
+      codigo_postal: "",
+      email: "",
+      telefono: "",
+      fecha: new Date(),
+      hora: "",
       notas: "",
     },
   });
@@ -232,6 +271,67 @@ export function CreateUpdateProject({
     }
   };
 
+  // Función para crear una nueva cita
+  const createAppointment = async (data: z.infer<typeof appointmentFormSchema>) => {
+    setIsCreatingAppointment(true);
+    try {
+      const appointmentData: Omit<Scheludes, 'id'> = {
+        nombre: data.nombre,
+        apellido: data.apellido,
+        direccion: data.direccion,
+        direccion2: data.direccion2 || "",
+        ciudad: data.ciudad,
+        estado: data.estado,
+        codigo_postal: data.codigo_postal,
+        email: data.email,
+        telefono: data.telefono,
+        fecha: data.fecha,
+        hora: data.hora,
+        notas: data.notas || "",
+        status: "POR VISITAR",
+        createdAt: Timestamp.now(),
+      };
+
+      const docRef = await addDocument('citas_agendadas', appointmentData);
+      
+      // Agregar la nueva cita a la lista local
+      const newAppointment: Scheludes = {
+        ...appointmentData,
+        id: docRef.id,
+      };
+      
+      setAppointments([...appointments, newAppointment]);
+      
+      // Seleccionar automáticamente la nueva cita
+      setSelectedAppointment(docRef.id);
+      setSelectedAppointmentData(newAppointment);
+      setValue("id_cita", docRef.id);
+      
+      showToast.success(t('createAppointmentSuccess'), {
+        duration: 2500,
+        progress: true,
+        position: "top-center",
+        transition: "bounceIn",
+        icon: "",
+        sound: true,
+      });
+      
+      setOpenCreateAppointment(false);
+      appointmentForm.reset();
+    } catch (error: any) {
+      showToast.error(error.message || t('createAppointmentError'), {
+        duration: 2500,
+        progress: true,
+        position: "top-center",
+        transition: "bounceIn",
+        icon: "",
+        sound: true,
+      });
+    } finally {
+      setIsCreatingAppointment(false);
+    }
+  };
+
   // Función para guardar o actualizar cliente
   const saveOrUpdateClient = async (appointmentData: Scheludes): Promise<string> => {
     try {
@@ -394,7 +494,20 @@ export function CreateUpdateProject({
           <div className="grid gap-6 py-4">
             {/* Seleccionar Cliente (Cita) */}
             <div className="space-y-2">
-              <Label htmlFor="id_cita">{t('appointment')}</Label>
+              <div className="flex justify-between items-center">
+                <Label htmlFor="id_cita">{t('appointment')}</Label>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setOpenCreateAppointment(true)}
+                  className="flex items-center gap-2"
+                  disabled={!!projectToUpdate}
+                >
+                  <Plus className="w-4 h-4" />
+                  {t('newAppointmentButton')}
+                </Button>
+              </div>
               <Popover open={openAppointmentCombobox} onOpenChange={setOpenAppointmentCombobox}>
                 <PopoverTrigger asChild>
                   <Button
@@ -788,6 +901,206 @@ export function CreateUpdateProject({
           </div>
         </form>
       </DialogContent>
+
+      {/* Dialog para crear nueva cita */}
+      <Dialog open={openCreateAppointment} onOpenChange={setOpenCreateAppointment}>
+        <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
+          <form onSubmit={appointmentForm.handleSubmit(createAppointment)}>
+            <DialogHeader>
+              <DialogTitle>{t('createAppointmentTitle')}</DialogTitle>
+              <DialogDescription>
+                {t('createAppointmentDescription')}
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="grid gap-4 py-4">
+              {/* Nombre y Apellido */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="nombre">{t('appointmentForm.firstName')}</Label>
+                  <Input
+                    id="nombre"
+                    {...appointmentForm.register("nombre")}
+                    placeholder={t('appointmentForm.firstNamePlaceholder')}
+                  />
+                  {appointmentForm.formState.errors.nombre && (
+                    <p className="text-sm text-red-500">{appointmentForm.formState.errors.nombre.message}</p>
+                  )}
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="apellido">{t('appointmentForm.lastName')} </Label>
+                  <Input
+                    id="apellido"
+                    {...appointmentForm.register("apellido")}
+                    placeholder={t('appointmentForm.lastNamePlaceholder')}
+                  />
+                  {appointmentForm.formState.errors.apellido && (
+                    <p className="text-sm text-red-500">{appointmentForm.formState.errors.apellido.message}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Email y Teléfono */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="email">{t('appointmentForm.email')}</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    {...appointmentForm.register("email")}
+                    placeholder={t('appointmentForm.emailPlaceholder')}
+                  />
+                  {appointmentForm.formState.errors.email && (
+                    <p className="text-sm text-red-500">{appointmentForm.formState.errors.email.message}</p>
+                  )}
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="telefono">{t('appointmentForm.phone')}</Label>
+                  <Input
+                    id="telefono"
+                    {...appointmentForm.register("telefono")}
+                    placeholder={t('appointmentForm.phonePlaceholder')}
+                  />
+                  {appointmentForm.formState.errors.telefono && (
+                    <p className="text-sm text-red-500">{appointmentForm.formState.errors.telefono.message}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Dirección */}
+              <div className="space-y-2">
+                <Label htmlFor="direccion">{t('appointmentForm.address')}</Label>
+                <Input
+                  id="direccion"
+                  {...appointmentForm.register("direccion")}
+                  placeholder={t('appointmentForm.addressPlaceholder')}
+                />
+                {appointmentForm.formState.errors.direccion && (
+                  <p className="text-sm text-red-500">{appointmentForm.formState.errors.direccion.message}</p>
+                )}
+              </div>
+
+              {/* Dirección 2 */}
+              <div className="space-y-2">
+                <Label htmlFor="direccion2">{t('appointmentForm.address2')}</Label>
+                <Input
+                  id="direccion2"
+                  {...appointmentForm.register("direccion2")}
+                  placeholder={t('appointmentForm.address2Placeholder')}
+                />
+              </div>
+
+              {/* Ciudad, Estado, Código Postal */}
+              <div className="grid grid-cols-3 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="ciudad">{t('appointmentForm.city')}</Label>
+                  <Input
+                    id="ciudad"
+                    {...appointmentForm.register("ciudad")}
+                    placeholder={t('appointmentForm.cityPlaceholder')}
+                  />
+                  {appointmentForm.formState.errors.ciudad && (
+                    <p className="text-sm text-red-500">{appointmentForm.formState.errors.ciudad.message}</p>
+                  )}
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="estado">{t('appointmentForm.state')} </Label>
+                  <Input
+                    id="estado"
+                    {...appointmentForm.register("estado")}
+                    placeholder={t('appointmentForm.statePlaceholder')}
+                  />
+                  {appointmentForm.formState.errors.estado && (
+                    <p className="text-sm text-red-500">{appointmentForm.formState.errors.estado.message}</p>
+                  )}
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="codigo_postal">{t('appointmentForm.zipCode')} </Label>
+                  <Input
+                    id="codigo_postal"
+                    {...appointmentForm.register("codigo_postal")}
+                    placeholder={t('appointmentForm.zipCodePlaceholder')}
+                  />
+                  {appointmentForm.formState.errors.codigo_postal && (
+                    <p className="text-sm text-red-500">{appointmentForm.formState.errors.codigo_postal.message}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Fecha y Hora */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>{t('appointmentForm.appointmentDate')} </Label>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className={cn(
+                          "w-full justify-start text-left font-normal",
+                          !appointmentForm.watch("fecha") && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {appointmentForm.watch("fecha") ? format(appointmentForm.watch("fecha"), "PPP") : <span>{t('appointmentForm.appointmentDatePlaceholder')}</span>}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0">
+                      <Calendar
+                        mode="single"
+                        selected={appointmentForm.watch("fecha")}
+                        onSelect={(date) => appointmentForm.setValue("fecha", date || new Date())}
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  {appointmentForm.formState.errors.fecha && (
+                    <p className="text-sm text-red-500">{appointmentForm.formState.errors.fecha.message}</p>
+                  )}
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="hora">{t('appointmentForm.appointmentTime')}</Label>
+                  <Input
+                    id="hora"
+                    type="time"
+                    {...appointmentForm.register("hora")}
+                  />
+                  {appointmentForm.formState.errors.hora && (
+                    <p className="text-sm text-red-500">{appointmentForm.formState.errors.hora.message}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Notas */}
+              <div className="space-y-2">
+                <Label htmlFor="notas_cita">{t('appointmentForm.notes')}</Label>
+                <Textarea
+                  id="notas_cita"
+                  {...appointmentForm.register("notas")}
+                  placeholder={t('appointmentForm.notesPlaceholder')}
+                  rows={3}
+                />
+              </div>
+            </div>
+
+            <div className="flex justify-end gap-4 mt-4">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => {
+                  setOpenCreateAppointment(false);
+                  appointmentForm.reset();
+                }}
+              >
+                {t('cancel')}
+              </Button>
+              <Button type="submit" disabled={isCreatingAppointment} className="bg-orange-500">
+                {isCreatingAppointment && <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />}
+                {t('createAppointmentButton')}
+              </Button>
+            </div>
+          </form>
+        </DialogContent>
+      </Dialog>
     </Dialog>
   );
 }
