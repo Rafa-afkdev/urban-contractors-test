@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import MultiImageUpload from "@/components/ui/multi-image-upload";
-import { addDocument, updateDocument, getCollection, getDocument, increment } from "@/lib/firebase";
+import { addDocument, updateDocument, getCollection, getDocument, increment, uploadBase64 } from "@/lib/firebase";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Check, ChevronsUpDown } from "lucide-react";
@@ -172,8 +172,25 @@ export default function CreateUpdateCatalogo({
     const path = `catalogos`;
     setIsLoading(true);
     try {
+      const uploadedUrls: string[] = [];
+      const imagesStorage: { path: string; url: string }[] = [];
+      for (let idx = 0; idx < (images || []).length; idx++) {
+        const img = images[idx];
+        if (img && img.startsWith("data:")) {
+          const storagePath = `catalogos/${Date.now()}-${idx}`;
+          const url = await uploadBase64(storagePath, img);
+          uploadedUrls.push(url);
+          imagesStorage.push({ path: storagePath, url });
+        } else if (img) {
+          // Already a URL
+          uploadedUrls.push(img);
+        }
+      }
       const normalizedCatalog = {
         ...catalog,
+        images: uploadedUrls,
+        image: uploadedUrls[0] || undefined,
+        images_storage: imagesStorage,
         nombre: catalog.nombre.toUpperCase(),
         descripcion: catalog.descripcion.toUpperCase(),
         created_at: new Date().toISOString(),
@@ -221,8 +238,28 @@ export default function CreateUpdateCatalogo({
     const path = `catalogos/${catalogToUpdate?.id}`;
     setIsLoading(true);
     try {
+      const previousStorage = (catalogToUpdate as any)?.images_storage as { path: string; url: string }[] | undefined;
+      const uploadedUrls: string[] = [];
+      const imagesStorage: { path: string; url: string }[] = [];
+      for (let idx = 0; idx < (images || []).length; idx++) {
+        const img = images[idx];
+        if (img && img.startsWith("data:")) {
+          const reusePath = previousStorage?.[idx]?.path;
+          const storagePath = reusePath || `catalogos/${catalogToUpdate?.id || Date.now()}-${idx}`;
+          const url = await uploadBase64(storagePath, img);
+          uploadedUrls.push(url);
+          imagesStorage.push({ path: storagePath, url });
+        } else if (img) {
+          uploadedUrls.push(img);
+          const existing = previousStorage?.[idx] || previousStorage?.find(s => s.url === img);
+          if (existing) imagesStorage.push(existing);
+        }
+      }
       const normalizedCatalog = {
         ...catalog,
+        images: uploadedUrls,
+        image: uploadedUrls[0] || undefined,
+        images_storage: imagesStorage,
         nombre: catalog.nombre.toUpperCase(),
         descripcion: catalog.descripcion.toUpperCase(),
         updated_by: user?.user?.uid,

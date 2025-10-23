@@ -202,7 +202,8 @@
     "ButtonAdd": "Agregar Servicio",
     "searchPlaceholder": "Buscar servicio por nombre...",
     "filterByCategory": "Filtrar por categoría",
-    "allCategories": "Todas las categorías"
+    "allCategories": "Todas las categorías",
+    "successDelete": "Servicio eliminado con éxito"
   },
   "CreateUpdateCatalog": {
     "titleCreate": "Crear Catálogo",
@@ -272,9 +273,9 @@
     "imagesCount": "{count} de {max} imágenes",
     "canAddMore": "Puedes agregar {remaining} más"
   },
-  "ConfirmDeletion": {
-    "title": "¿Estás seguro de que deseas eliminar este producto?",
-    "description": "Presiona Confirmar para eliminar el producto del catálogo",
+  "ConfirmDeletionServices": {
+    "title": "¿Estás seguro de que deseas eliminar este servicio?",
+    "description": "Presiona Confirmar para eliminar el servicio del catálogo",
     "cancel": "Cancelar",
     "confirm": "Confirmar"
   },

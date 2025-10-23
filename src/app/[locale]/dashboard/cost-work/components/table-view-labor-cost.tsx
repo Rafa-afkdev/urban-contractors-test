@@ -43,7 +43,7 @@ export function TableLaborCostView({
     <div className="rounded-md border">
       <div className="overflow-x-auto">
         <Table className="min-w-full">
-          <TableHeader className="bg-slate-50">
+          <TableHeader className="bg-slate-50 dark:bg-gray-800">
             <TableRow>
               <TableHead className="w-[250px]">{t("headerService")}</TableHead>
               <TableHead className="w-[150px]">{t("headerCost")}</TableHead>

@@ -14,7 +14,7 @@ import { Mail, LoaderCircle } from "lucide-react";
 import { Project } from "../../../../../../interfaces/projects.interface";
 import { useTranslations, useLocale } from "next-intl";
 import { showToast } from "nextjs-toast-notify";
-import { SendEmailGmail } from "@/lib/gmail-smtp";
+import { SendEmailWithAttachments } from "@/lib/resend";
 import { generateInvoicePDF } from "@/lib/generate-invoice-pdf";
 
 interface SendInvoiceEmailProps {
@@ -201,7 +201,7 @@ export function SendInvoiceEmail({ project, children }: SendInvoiceEmailProps) {
             <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb;">
               <p style="font-size: 14px; color: #6b7280; margin: 5px 0;">
                 <strong>Urban Contractors</strong><br/>
-                Email: ${process.env.GMAIL_USER || 'info@urbancontractors.com'}<br/>
+                Email: noreply@urbcontractors.com<br/>
                 Teléfono: (XXX) XXX-XXXX
               </p>
             </div>
@@ -222,10 +222,10 @@ export function SendInvoiceEmail({ project, children }: SendInvoiceEmailProps) {
       const subject = `Factura - Proyecto para ${project.cliente_nombre}`;
       const fileName = `Factura_${project.cliente_nombre.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
       
-      // Enviar email con PDF adjunto
-      await SendEmailGmail(
-        project.cliente_email, 
-        subject, 
+      // Enviar email con PDF adjunto via Resend
+      await SendEmailWithAttachments(
+        project.cliente_email,
+        subject,
         emailHTML,
         [{
           filename: fileName,

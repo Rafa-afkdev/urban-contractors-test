@@ -15,7 +15,7 @@ import { useTranslations } from "next-intl";
 
 
   export function ConfirmDeletion({children, deleteCatalog, catalog}: {children: React.ReactNode, deleteCatalog: (catalog: Catalog) => Promise<void>; catalog: Catalog }) {
-    const t = useTranslations('ConfirmDeletion');
+    const t = useTranslations('ConfirmDeletionServices');
     
     return (
       <AlertDialog>

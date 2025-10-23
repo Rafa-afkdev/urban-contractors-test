@@ -25,14 +25,20 @@ export function CardViewCatalogo({
   return (
     <div className="max-h-[calc(100vh-220px)] overflow-y-auto scrollbar-hide">
       {/* Grid de productos estilo ecommerce */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols- 2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {!isLoading &&
           catalog.map((item) => (
             <Card key={item.id} className="group hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5 bg-white dark:bg-gray-800 border-0 shadow-sm overflow-hidden">
               <div className="relative">
                 {/* Carrusel de imágenes del producto */}
                 <ImageCarousel
-                  images={item.images && item.images.length > 0 ? item.images : (item.image ? [item.image] : [])}
+                  images={
+                    (item as any).images_storage && (item as any).images_storage.length > 0
+                      ? (item as any).images_storage.map((i: { url: string }) => i.url)
+                      : (item.images && item.images.length > 0
+                        ? item.images
+                        : (item.image ? [item.image] : []))
+                  }
                   alt={item.nombre}
                   aspectRatio="video"
                   className="group-hover:scale-105 transition-transform duration-300"

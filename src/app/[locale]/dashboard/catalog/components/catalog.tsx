@@ -96,7 +96,7 @@ export default function CatalogComponent() {
         });
       }
       
-      showToast.success("", {
+      showToast.success(t('successDelete'), {
         duration: 2500,
           progress: true,
           position: "top-center",
@@ -120,7 +120,7 @@ export default function CatalogComponent() {
   };
 
   return (
-    <div>
+    <div className="-mt-3 sm:-mt-4">
 
         <div className="flex justify-between items-center mb-6">
           <CardTitle className="text-2xl">{t('title')} : {filteredCatalog.length}</CardTitle>

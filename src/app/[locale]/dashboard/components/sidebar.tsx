@@ -159,6 +159,8 @@ export default function Sidebar({ className }: SidebarProps) {
                   src={theme === 'dark' ? "/Logo.png" : "/Logo-Dark.png"}
                   alt="Urban Contractors Logo"
                   fill
+                  sizes="(max-width: 768px) 112px, 112px"
+                  priority
                   className="object-contain"
                 />
               </div>

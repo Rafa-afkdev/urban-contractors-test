@@ -200,11 +200,12 @@
   },
 
   "Catalog": {
-    "title": "Registered Services",
-    "ButtonAdd": "Add New Service",
+    "title": "Service Catalog",
+    "ButtonAdd": "Add Service",
     "searchPlaceholder": "Search service by name...",
     "filterByCategory": "Filter by category",
-    "allCategories": "All categories"
+    "allCategories": "All categories",
+    "successDelete": "Service deleted successfully"
   },
   "CreateUpdateCatalog": {
     "titleCreate": "Create Catalog",
@@ -274,9 +275,9 @@
     "imagesCount": "{count} of {max} images",
     "canAddMore": "You can add {remaining} more"
   },
-  "ConfirmDeletion": {
-    "title": "Are you sure you want to delete this product?",
-    "description": "Press Confirm to delete the product from the catalog",
+  "ConfirmDeletionServices": {
+    "title": "Are you sure you want to delete this service?",
+    "description": "Press Confirm to delete the service from the catalog",
     "cancel": "Cancel",
     "confirm": "Confirm"
   },

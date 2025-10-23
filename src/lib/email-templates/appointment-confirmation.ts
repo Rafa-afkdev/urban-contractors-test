@@ -48,7 +48,7 @@ const translations: Record<string, EmailTranslations> = {
     companyName: 'Urban Contractors',
     footer: {
       rights: 'All rights reserved',
-      contact: 'Contact: info@urbancontractors.com | +1 929 358 3319',
+      contact: 'Contact: +1 929 358 3319',
       autoMessage: 'This is an automated email, please do not reply.'
     }
   },
@@ -74,7 +74,7 @@ const translations: Record<string, EmailTranslations> = {
     companyName: 'Urban Contractors',
     footer: {
       rights: 'Todos los derechos reservados',
-      contact: 'Contacto: info@urbancontractors.com | +1 929 358 3319',
+      contact: 'Contacto: +1 929 358 3319',
       autoMessage: 'Este es un correo automático, por favor no responda.'
     }
   }

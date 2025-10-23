@@ -48,6 +48,8 @@ export function ImageCarousel({
           src={images[0]}
           alt={alt}
           fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+          unoptimized
           className="object-cover"
         />
       </div>
@@ -78,6 +80,8 @@ export function ImageCarousel({
         src={images[currentIndex]}
         alt={`${alt} ${currentIndex + 1}`}
         fill
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+        unoptimized
         className="object-cover transition-opacity duration-300"
       />
 

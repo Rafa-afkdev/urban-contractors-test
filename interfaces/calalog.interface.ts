@@ -4,6 +4,7 @@ export interface Catalog {
     id?: string;
     image?: string; // Mantener para compatibilidad hacia atrás
     images?: string[]; // Nueva propiedad para múltiples imágenes
+    images_storage?: StorageImage[]; // Imágenes con path y url en Storage
     nombre: string;
     descripcion: string;
     precio: number;
@@ -18,4 +19,9 @@ export interface CatalogoProductosRequeridos {
     descripcion: string,
     tipo_medida: string,
     cantidad?: number
+}
+
+export interface StorageImage {
+    path: string;
+    url: string;
 }

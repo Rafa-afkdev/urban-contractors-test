@@ -3,7 +3,7 @@ import { Timestamp } from "firebase/firestore";
 export interface Employees {
     //TODO DATOS PRINCIPALES
     id?: string;
-    imagen?: string;
+    imagen?: EmployeesImage;
     cedula: string;
     nombre: string;
     apellido: string;
@@ -22,4 +22,9 @@ export interface Employees {
     status: string;
     created_at: Timestamp;
     updated_at?: Timestamp;
+}
+
+export interface EmployeesImage {
+    path: string,
+    url: string;
 }

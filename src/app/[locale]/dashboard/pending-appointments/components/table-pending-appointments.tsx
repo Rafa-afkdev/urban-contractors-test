@@ -18,7 +18,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { setDocument } from "@/lib/firebase";
-import { SendEmailGmail } from "@/lib/gmail-smtp";
+import { SendEmail } from "@/lib/resend";
 import { generateAppointmentEmailHTML } from "@/lib/email-templates/appointment-confirmation";
 import { useParams } from "next/navigation";
 import { Eye, Mail, CheckCheck, LoaderCircle } from "lucide-react";
@@ -98,8 +98,8 @@ export default function PendingAppointments({
         additionalMessage.trim() || undefined
       );
 
-      // Enviar email al cliente real usando Gmail SMTP
-      await SendEmailGmail(
+      // Enviar email al cliente real usando Resend
+      await SendEmail(
         selectedAppointmentEmail.email, // Email real del cliente
         subject,
         html
