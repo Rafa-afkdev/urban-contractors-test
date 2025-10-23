@@ -18,7 +18,7 @@ export default function ClientRouteGuard({ children }: { children: React.ReactNo
     const routeWithoutLocale = parts.length > 1 ? `/${parts.slice(1).join("/")}` : "/";
     const authRoutes = ["/", "/auth", "/forgot-password"];
     const isInAuthRoute = authRoutes.includes(routeWithoutLocale);
-    const isProtectedRoute = routeWithoutLocale.startsWith("/dashboard/home");
+    const isProtectedRoute = routeWithoutLocale.startsWith("/dashboard");
     
     return { routeWithoutLocale, isInAuthRoute, isProtectedRoute };
   }, [pathName]);

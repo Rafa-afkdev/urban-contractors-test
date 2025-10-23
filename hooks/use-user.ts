@@ -5,7 +5,6 @@
 import { auth, getDocument, setDocument } from "@/lib/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { DocumentData } from "firebase/firestore";
-import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { User } from "../interfaces/user.interface";
 import { setInLocalstorage } from "../actions/set-in-LocalStorage";
@@ -14,11 +13,6 @@ import { getFromLocalstorage } from "../actions/get-from-LocalStorage";
 export const useUser = () => {
   const [user, setUser] = useState<User | undefined | DocumentData>(undefined);
   const [loading, setLoading] = useState<boolean>(true);
-  const pathName = usePathname();
-  const route = useRouter();
-
-  const protectedRoutes = "/dashboard/home";
-  //   const isInprotectedRoute = protectedRoutes.includes(pathName);
 
   const getUserFromDB = async (uid: string) => {
     const path = `users/${uid}`;
