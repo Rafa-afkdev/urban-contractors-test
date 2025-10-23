@@ -43,7 +43,7 @@ export function ViewEmployeeDetails({ children, employee }: ViewEmployeeDetailsP
             {employee.imagen ? (
               <div className="relative w-[180px] h-[180px] rounded-full overflow-hidden border-4 border-orange-200 dark:border-orange-800 shadow-lg">
                 <Image
-                  src={employee.imagen}
+                  src={employee.imagen.url}
                   alt={`${employee.nombre} ${employee.apellido}`}
                   fill
                   className="object-cover"
