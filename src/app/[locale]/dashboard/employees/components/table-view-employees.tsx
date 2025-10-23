@@ -50,7 +50,7 @@ export function TableEmployeesView({
                   <TableCell className="py-3">
                     {employee.imagen ? (
                       <img
-                        src={employee.imagen}
+                        src={employee.imagen.url}
                         alt={`Foto de ${employee.nombre}`}
                         className="h-10 w-10 rounded-full object-cover border border-slate-200 shadow-sm"
                       />
