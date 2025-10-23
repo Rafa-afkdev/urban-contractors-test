@@ -25,6 +25,7 @@ import {
   updateDocument,
   createUser,
   setDocument,
+  uploadBase64,
 } from "@/lib/firebase";
 import {
   Select,
@@ -78,7 +79,7 @@ export function CreateUpdateEmployees({
     resolver: zodResolver(formSchema),
     defaultValues: employeeToUpdate
       ? {
-          imagen: employeeToUpdate.imagen || "",
+          imagen: (employeeToUpdate.imagen as any)?.url || "",
           cedula: employeeToUpdate.cedula || "",
           nombre: employeeToUpdate.nombre || "",
           apellido: employeeToUpdate.apellido || "",
@@ -114,7 +115,7 @@ export function CreateUpdateEmployees({
 
   useEffect(() => {
     if (employeeToUpdate && employeeToUpdate.imagen) {
-      setImage(employeeToUpdate.imagen);
+      setImage((employeeToUpdate.imagen as any)?.url || "");
     } else {
       setImage("");
     }
@@ -173,8 +174,15 @@ export function CreateUpdateEmployees({
 
       const uid = userCredential.user.uid;
 
+      // Subir imagen si es base64
+      let photoUrl = image || "";
+      if (photoUrl && photoUrl.startsWith("data:")) {
+        const storagePath = `users/${uid}`;
+        photoUrl = await uploadBase64(storagePath, photoUrl);
+      }
+
       const normalizedEmployee = {
-        imagen: image || "",
+        imagen: photoUrl,
         cedula: employee.cedula,
         nombre: employee.nombre?.toUpperCase(),
         apellido: employee.apellido?.toUpperCase(),
@@ -250,8 +258,15 @@ export function CreateUpdateEmployees({
         return;
       }
 
+      // Subir imagen si es base64
+      let photoUrl = image || (employeeToUpdate?.imagen as any)?.url || "";
+      if (photoUrl && typeof photoUrl === 'string' && photoUrl.startsWith("data:")) {
+        const storagePath = `users/${employeeToUpdate?.id}`;
+        photoUrl = await uploadBase64(storagePath, photoUrl);
+      }
+
       const normalizedEmployee = {
-        imagen: image || employeeToUpdate?.imagen || "",
+        imagen: photoUrl,
         cedula: employee.cedula,
         nombre: employee.nombre?.toUpperCase(),
         apellido: employee.apellido?.toUpperCase(),
